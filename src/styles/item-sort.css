@@ -1,0 +1,14 @@
+.itemize-container .items {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemize-container .items .itemize-item {
+  width: 20%;
+  min-width: 50px;
+  text-align: center;
+  color: black;
+
+}

@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { newupdatenovels } from '../config/api/index';
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import { routeConfig } from "../config/route-config";
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../reducer/index';
 import HomePage from './home';
-// 调试工具 
-import {composeWithDevTools} from 'redux-devtools-extension'
-const store = createStore(
-  rootReducer,
-  composeWithDevTools()
-)
+import {Provider} from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from '../saga';
 
+// 调试工具 
+import {composeWithDevTools} from 'redux-devtools-extension';
+const sagaMiddleware = createSagaMiddleware();
+
+// const store = createStore(
+//   rootReducer,
+//   composeWithDevTools(
+//     applyMiddleware(sagaMiddleware) //安装中间件
+  
+//   )
+// )
+// sagaMiddleware.run(rootSaga);
 export default class MainEntry extends Component {
   
   constructor(props) {
@@ -27,36 +33,11 @@ export default class MainEntry extends Component {
     var queryReturn = await newupdatenovels();
     console.log(queryReturn)
   }
-    handleRoutes = route => {
-    const { path, exact } = route;
-    const obj = { path: path };
-    if (exact) obj["exact"] = true;
-    return (
-      <Route
-        key={path}
-        {...obj}
-        render={props => {
-          return (
-            <route.component
-              {...props}
-              {...this.props}
-            />
-          );
-        }}
-      />
-    );
-  };
+
   render() {
     return (
       <div className='main-container'>
-        <Router>
-         <div>
-            {routeConfig.map((route, idx) => this.handleRoutes(route))}
-         </div>
-            <Route exact path="/" render={() => (
-              <Redirect to="/home" />
-            )} />
-        </Router>
+        <HomePage />
       </div>
     )
   }
