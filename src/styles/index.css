@@ -1,3 +1,5 @@
 @import './initialize.css';
 @import './header.css';
 @import './item-sort.css';
+@import './novellist-item.scss';
+@import './sort.scss';

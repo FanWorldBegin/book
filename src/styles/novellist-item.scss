@@ -1,0 +1,37 @@
+.novellist-item {
+
+  .item-container {
+    height: 120px;
+    margin-bottom: 20px;
+    display: flex;
+    padding: 10px;
+
+    .item-img {
+      min-width: 100px;
+      background-color: cadetblue;
+    }
+
+    .item-content {
+      padding-left: 4px;
+      width: 80%;
+      position: relative;
+
+      .title {
+        height: 20px;
+      }
+
+      .Description {
+        overflow: hidden; //超出的文本隐藏
+        text-overflow: ellipsis; //溢出用省略号显示
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        height: 80px;
+        line-height: 25px;
+        ;
+      }
+    }
+  }
+
+  ;
+
+}

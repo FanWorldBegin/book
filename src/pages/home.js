@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Header } from '../component/header';
 import { connect } from 'react-redux';
 import { ItemSort } from '../component/item-sort';
-import { setCoverNovelList } from '../action/index'
+import { setCoverNovelListAsync } from '../action/index';
+import NovellistItem from '../component/novellist-item';
+
 class HomePage extends Component {
 
   constructor(props) {
@@ -10,17 +12,18 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    this.props.setCoverNovelList()
+    this.props.setCoverNovelListAsync()
   }
 
   render() {
+    const { coverRecommend = [] } = this.props.novelList
     return (
       <div>
         <Header/>
         <ItemSort/>
         <div className='home-cover-stories'>
           <div className='recommend-list'>
-            home  
+            <NovellistItem novelList={coverRecommend} />
           </div>
         </div>   
       </div>
@@ -32,8 +35,8 @@ class HomePage extends Component {
 const mapStateToProps = (state) => {
   console.log(state)
   return {
-    user: state.user,
+    novelList: state.novelList,
   }
 }
 
-export default connect(mapStateToProps, { setCoverNovelList})(HomePage);
+export default connect(mapStateToProps, { setCoverNovelListAsync })(HomePage);

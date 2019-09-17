@@ -9,6 +9,7 @@ const novelList = (state = intialState, action = {}) => {
   switch (action.type) {
     case SET_COVER_NOVEL_LIST:
       console.log('set_cover_novel_list')
+      console.log(action)
       return Object.assign({}, state, {
         coverRecommend: action.filter
       })
