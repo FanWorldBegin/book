@@ -1,10 +1,27 @@
+//小说列表单个行
 .novellist-item {
+  a {
+    text-decoration: none;
+  }
+
+  a:active {
+    color: black;
+  }
+
+  a:visited {
+    color: black;
+  }
 
   .item-container {
     height: 120px;
     margin-bottom: 20px;
     display: flex;
     padding: 10px;
+
+    .author {
+      color: rgba(153, 153, 153, 1.0);
+      font-size: 14px;
+    }
 
     .item-img {
       min-width: 100px;
@@ -26,12 +43,19 @@
         display: -webkit-box;
         -webkit-box-orient: vertical;
         height: 80px;
-        line-height: 25px;
+        line-height: 20px;
         ;
       }
     }
   }
 
-  ;
+  .item-simple-container {
+    padding: 10px;
+    border-bottom: 1px solid rgba(236, 236, 236, 1.0);
 
+    .author {
+      color: rgba(153, 153, 153, 1.0);
+      font-size: 14px;
+    }
+  }
 }

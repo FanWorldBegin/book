@@ -5,6 +5,17 @@ import { ItemSort } from '../component/item-sort';
 import { setCoverNovelListAsync } from '../action/index';
 import NovellistItem from '../component/novellist-item';
 
+const novelSort = [
+  { index: 8, name: '封面推荐', detail: true },
+  { index: 1, name: '玄幻魔法', detail: false},
+  { index: 2, name: '武侠修真', detail: false},
+  { index: 3, name: '都市言情', detail: false},
+  { index: 4, name: '历史军事', detail: false },
+  { index: 5, name: '侦探推理', detail: false },
+  { index: 6, name: '网游动漫', detail: false },
+  { index: 7, name: '科幻灵异', detail: false },
+]
+
 class HomePage extends Component {
 
   constructor(props) {
@@ -16,14 +27,24 @@ class HomePage extends Component {
   }
 
   render() {
-    const { coverRecommend = [] } = this.props.novelList
+    var { coverRecommend  = [] } = this.props.novelList;
+    coverRecommend = coverRecommend.Result;
     return (
       <div>
         <Header/>
         <ItemSort/>
         <div className='home-cover-stories'>
           <div className='recommend-list'>
-            <NovellistItem novelList={coverRecommend} />
+            {
+              novelSort.map(item => {
+                return (
+                  <div className='sort-item' key={item.index}>
+                    <div className='list-title'>{item.name}</div>
+                    <NovellistItem detail={item.detail} novelList={(coverRecommend || {})[item.index]} />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>   
       </div>

@@ -1,0 +1,42 @@
+.list-items {
+  padding-top: 10px;
+  font-size: 16px;
+
+  .list-item {
+    border-bottom: 1px solid $boderGrey;
+    padding: 10px;
+
+    .author {
+      color: $titleGrey;
+      font-size: 14px;
+    }
+  }
+
+  .paging-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+    .paging-item {
+      padding: 6px 16px;
+      background-color: $btnBlue;
+      color: #fff;
+      border-radius: 4px;
+    }
+
+    .paging-item2 {
+      margin-left: 10px;
+    }
+  }
+
+  .paging-describe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .paging-item2 {
+      margin-left: 10px;
+    }
+  }
+}
