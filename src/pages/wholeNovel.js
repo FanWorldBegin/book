@@ -10,30 +10,44 @@ class WholeNovel extends Component {
     super(props);
     this.state = {
       active: 0,
+      loading: true,
     };
 
   }
 
   componentDidMount() {
-    console.log(this.props)
-    this.props.setWholeNovelListAsync({
-      pageIndex: 1
-    });
+    this.query();
   }
 
+  query = async() => {
+    this.setState({
+      loading: true,
+    })
+    await this.props.setWholeNovelListAsync({
+      pageIndex: 1
+    });
+    this.setState({
+      loading: false,
+    })
+  }
   render() {
-    let { active, queryType } = this.state;
+    let { active, loading  } = this.state;
     const { wholeNovelList = [], wholeNovelTotal = 0, } = this.props;
     return (
       <div>
         <Header />
         <ItemSort />
-        <div className='whole-container'>
-          <NovelList rankList={wholeNovelList}
-            total={wholeNovelTotal}
-            query={this.props.setWholeNovelListAsync}
-          />
-        </div>
+        {
+          loading ? <img className='loading' src={require('../assets/loading.svg')} /> : (
+            <div className='whole-container'>
+              <NovelList rankList={wholeNovelList}
+                total={wholeNovelTotal}
+                query={this.query}
+                loading={loading}
+              />
+            </div>
+          )
+        }
 
       </div>
     )

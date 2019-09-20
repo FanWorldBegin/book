@@ -6,6 +6,15 @@
 
 module.exports = {
   /* Your site config here */
+  siteMetadata: {
+    title: 'bookStore',
+    menuLinks: [
+      {
+        name: 'home',
+        link: '/'
+      }
+    ]
+  },
   plugins: [
     {
       resolve: `gatsby-plugin-react-redux`,
@@ -28,5 +37,6 @@ module.exports = {
 
       },
     },
+    `gatsby-plugin-emotion`,
   ],
 }

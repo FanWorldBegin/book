@@ -1,0 +1,26 @@
+.header-container {
+  height: 50px;
+  background-color: rgba(0, 123, 177, 1.0);
+  width: 100%;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .back-btn {
+    color: #fff;
+    padding: 2px 10px;
+    display: inline-block;
+    background-color: rgba(101, 187, 236, 1.0);
+    border-radius: 4px;
+    margin-left: 10px;
+  }
+
+  .title {
+    color: #fff;
+  }
+
+  .left {
+    margin-right: 10px;
+  }
+}

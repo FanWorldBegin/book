@@ -6,3 +6,6 @@ export const SET_CATEGORY_LIST = 'SET_CATEGORY_LIST'; // 小说类别列表
 export const CATE_LIST_PAGING_ADD = 'CATE_LIST_PAGING_ADD'; //小说类别列表分页增加
 export const CATE_LIST_PAGING_MINUS = 'CATE_LIST_PAGING_MINUS'; //小说类别列表分页减
 export const SET_WHOLE_NOVEL_LIST = 'SET_WHOLE_NOVEL_LIST'; //全本小说查询
+export const SET_NIVEL_DETAIL = 'SET_NIVEL_DETAIL'; //获取但本小说信息
+export const SET_NOVEL_CHAPTER = 'SET_NIVEL_CHAPTER'; //根据章节ID查询章节
+export const SET_CHAPTER_DETAIL = 'SET_CHAPTER_DETAIL'; //查询章节详细信息

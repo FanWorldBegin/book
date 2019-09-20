@@ -27,6 +27,7 @@ export default class MainEntry extends Component {
 
   componentDidMount() {
     this.query();
+    
   }
 
   query = async () => {

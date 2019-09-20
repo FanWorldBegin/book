@@ -19,33 +19,51 @@ const novelSort = [
 class HomePage extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      loading: true,
+    }
   }
 
   componentDidMount() {
-    this.props.setCoverNovelListAsync()
+    this.query()
+  }
+
+  query = async() => {
+    console.log('before query');
+    await this.props.setCoverNovelListAsync();
+    this.setState({
+      loading: false,
+    })
+    console.log('after query');
   }
 
   render() {
     var { coverRecommend  = [] } = this.props.novelList;
     coverRecommend = coverRecommend.Result;
+    let { loading } = this.state;
     return (
       <div>
         <Header/>
         <ItemSort/>
         <div className='home-cover-stories'>
-          <div className='recommend-list'>
-            {
-              novelSort.map(item => {
-                return (
-                  <div className='sort-item' key={item.index}>
-                    <div className='list-title'>{item.name}</div>
-                    <NovellistItem detail={item.detail} novelList={(coverRecommend || {})[item.index]} />
-                  </div>
-                )
-              })
-            }
-          </div>
+          {
+            loading ? <img className='loading' src={require('../assets/loading.svg')} /> : (
+              <div className='recommend-list'>
+                {
+                  novelSort.map(item => {
+                    return (
+                      <div className='sort-item' key={item.index}>
+                        <div className='list-title'>{item.name}</div>
+                        <NovellistItem detail={item.detail} novelList={(coverRecommend || {})[item.index]} />
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            )
+          }
+
         </div>   
       </div>
     )

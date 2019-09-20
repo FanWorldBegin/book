@@ -1,12 +1,45 @@
 import { $R } from '../req-filter';
+
 const routes = {
   novelsets: '/novelsets', //首页展示
   newupdatenovels: '/newupdatenovels', //根据条件查询设置的页面展示小说;
   rankingtypes: '/rankingtypes', //查询小说排行分类
   rankings: '/rankings', //查询小说排行
   novels: '/novels', //根据条件查询书籍
+  novel: '/novel', //根据书籍ID查询书籍
+  chapters: '/novel/chapters', // 根据章节ID查询章节
+  chapter: '/chapter', //根据ID查询章节
   
 }
+
+/**
+ * 查看小说章节;
+ * @param {*} data 
+ * @param {*} ID 
+ */
+export async function searchChapterDetail(ID) {
+  return await $R.get(routes.chapter, {
+    params: {
+      ID,
+    }
+  });
+}
+
+
+/**
+ * 查看小说章节列表;
+ * @param {*} data 
+ * @param {*} ID 
+ */
+export async function searchChapters(NovelID) {
+  return await $R.get(routes.chapters, {
+    params: {
+      NovelID
+,
+    }
+  });
+}
+
 
 /**
  * 首页展示小说;
@@ -90,6 +123,19 @@ export async function getwholeNovelList(type, pageNumber) {
       PageNum: pageNumber,
       PageSize: 20,
       Status: 1, //已完结
+    }
+  });
+}
+
+
+
+/**
+ * 根据书籍ID查询书籍;
+ */
+export async function getNovelDetail(ID) {
+  return await $R.get(routes.novel, {
+    params: {
+      ID: ID
     }
   });
 }

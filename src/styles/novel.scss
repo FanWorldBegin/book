@@ -1,0 +1,51 @@
+//书籍详细页
+.novel-container {
+  .main-describe {
+    display: flex;
+    padding: 10px;
+
+    .novel-cover {
+      img {
+        background-color: aquamarine;
+        width: 100px;
+        height: 120px;
+      }
+    }
+
+    .novel-detail {
+      margin-left: 10px;
+
+      div {
+        font-size: 14px;
+        color: $titleGrey;
+      }
+
+      .black {
+        color: black;
+      }
+
+      .title {
+        font-size: $titleSize;
+        font-weight: 500;
+        color: black;
+      }
+    }
+  }
+
+  .content-detail {
+    .title {
+      padding: 10px;
+      font-size: $titleSize;
+      font-weight: 500;
+      color: black;
+      background-color: $backBlue;
+      border-bottom: 1px solid $btnBlue;
+    }
+
+    .describe {
+      padding: 10px;
+      font-size: 14px;
+      color: $titleGrey;
+    }
+  }
+}
