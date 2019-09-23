@@ -143,9 +143,41 @@ class NovelPage extends Component {
                   }>进书架</div>
                 </div>
                 <div className='title'>{chapterDetail.ChapterName}</div>
-                {
-                  content
-                }
+                <div className='content-detail'>
+                  {
+                    content
+                  }
+                </div>
+
+                <div className='navigate-container' css={closeLight ? navigateContainer['black'] : navigateContainer['yellow']}>
+                  <div onClick={
+                    e => {
+                      this.queryNewChapter(0);
+                    }
+                  }>上一章</div>
+                  <div onClick={
+                    e => {
+                      navigate(
+                        `/novel`,
+                        {
+                          state: {
+                            ID: chapterDetail.NovelID,
+                          }
+                        }
+                      )
+                    }
+                  }>回目录</div>
+                  <div onClick={
+                    e => {
+                      this.queryNewChapter(1);
+                    }
+                  }>下一章</div>
+                  <div onClick={
+                    e => {
+
+                    }
+                  }>进书架</div>
+                </div>
               </div>
             </React.Fragment>
           )
