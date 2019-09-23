@@ -18,6 +18,7 @@ const novelItem = (state = intialState, action={}) => {
         chapters: action.filter
       });
     case SET_CHAPTER_DETAIL:
+      console.log(action.filter)
       return Object.assign({}, state, {
         chapterDetail: action.filter
       });

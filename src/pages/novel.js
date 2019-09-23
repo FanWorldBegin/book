@@ -27,6 +27,7 @@ function GMTToStr(time){
   }
 
   componentDidMount() {
+    console.log(this.props.location.state.ID)
     this.query(this.props.location.state.ID);
   }
 
@@ -42,13 +43,14 @@ function GMTToStr(time){
     })
   }
   //截取最新章节
-   sliceChapters = (chapters) => {
+   sliceChapters = (chapters=[]) => {
      return chapters.slice(0,3);
   }
   render() {
     const {  novelDetail, chapters } = this.props;
     let { loading } = this.state;
     var sliceChapters = this.sliceChapters(chapters);
+    var { ID } = this.props.location.state
     return (
       <div className='novel-container'>
         <HeaderBack/>
@@ -93,7 +95,7 @@ function GMTToStr(time){
               </div>
               <div className='content-detail'>
                 <div className='title'>{novelDetail.NovelName} 正文</div>
-                <ChapterList List={chapters.reverse()} total={(chapters || []).length} query={e=>{}}/>
+                <ChapterList List={chapters.reverse()} total={(chapters || []).length} query={e => { }}/>
               </div>
             </React.Fragment>
           )

@@ -1,5 +1,9 @@
-import { getNovelDetail, searchChapters, searchChapterDetail } from '../config/api/index';
+import { getNovelDetail, searchChapters, searchChapterDetail, searchChapterNext } from '../config/api/index';
 import { SET_NIVEL_DETAIL, SET_NOVEL_CHAPTER, SET_CHAPTER_DETAIL } from './constants';
+
+
+
+
 
 //获取小说详情
 const novelDetail = (novel) => {
@@ -8,6 +12,7 @@ const novelDetail = (novel) => {
     filter: novel
   }  
 }
+
 
 export const setNovelDetailAsync = (ID) => {
   return async (dispatch) =>{
@@ -49,3 +54,15 @@ export const setChapterDetailAsync = (ID) => {
     dispatch(chapterDetail(res))
   }
 }
+
+
+//获取上一章或下一章小说内容
+export const getNewChapterAsync = ({ ID, Flag }) => {
+  return async (dispatch) => {
+    var res = await searchChapterNext({ ID, Flag });
+    res = (res || {}).Result;
+    console.log(res)
+    dispatch(chapterDetail(res))
+  }
+}
+

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { HeaderBack } from '../component/header-back';
 import { connect } from 'react-redux';
-import { setChapterDetailAsync } from '../action';
+import { setChapterDetailAsync, getNewChapterAsync } from '../action';
 import { css } from "@emotion/core"
+import NovelBar  from '../component/novel-bar';
+import { navigate } from "gatsby";
 
 const fontSizeObj = {
   big: {fontSize: '20px'},
@@ -10,8 +12,23 @@ const fontSizeObj = {
   sml: { fontSize: '12px' },
 }
 const backColor = {
-  yel: {backgroundColor: 'rgba(251, 246, 235, 1.0)'}, 
+  yellow: {backgroundColor: 'rgba(251, 246, 235, 1.0)'}, 
   green: { backgroundColor: 'rgba(220, 235, 210, 1.0)'}
+}
+const closeLightStyle = {
+  color: 'rgba(204, 204, 204, 1.0)',
+  backgroundColor: 'rgba(50, 55, 59, 1.0)',
+}
+
+const navigateContainer = {
+  yellow: {
+    color: 'rgba(0, 128, 0, 1.0)',
+    backgroundColor: 'rgba(106, 110, 128, 0.1)',
+  },
+  black: {
+    color: 'rgba(204, 204, 204, 1.0)',
+    backgroundColor: 'rgba(106, 110, 128, 0.1)',
+  }
 }
 class NovelPage extends Component {
   constructor(props) {
@@ -19,12 +36,16 @@ class NovelPage extends Component {
     this.state = {
       loading: true,
       fontSize: 'mid',
-      backColorCon: 'yel',
+      backColorCon: 'yellow',
+      closeLight: false,  //是否关灯
+      
     };
   }
 
   componentDidMount() {
     this.query(this.props.location.state.ID);
+    console.log('当页ID')
+    console.log(this.props.location.state.ID)
   }
 
   query = async () => {
@@ -35,20 +56,93 @@ class NovelPage extends Component {
     this.setState({
       loading: false,
     });
-
+  }
+  setFont = (fontSize) => {
+     this.setState({
+       fontSize
+     })
+   }
+  setBackColor = (backColor) => {
+    console.log(backColor)
+    this.setState({
+      backColorCon: backColor,
+    })
   }
 
-  render() {
-    var { loading, fontSize, backColorCon } = this.state;
+  ifCloseLight = (closeLight) => {
+    console.log(closeLight)
+    this.setState({
+      closeLight
+    })
+  }
+
+  queryNewChapter = async (Flag) => {
+    this.setState({
+      loading: true,
+    });
+    await this.props.getNewChapterAsync({
+      ID:this.props.location.state.ID,
+      Flag
+    })
+    this.setState({
+      loading: false,
+    });
+    console.log(this.props)
     const { chapterDetail={} } = this.props;
+    const { ID } = chapterDetail;
+    navigate(
+      `/novelPage?ID/${ID}`,
+      {
+        state: {
+          ID: ID,
+        }
+      }
+    )
+  }
+  render() {
+    var { loading, fontSize, backColorCon, closeLight } = this.state;
+    const {ID} = this.props.location.state;
+    const { chapterDetail={} } = this.props;
+    console.log(this.props)
     var content = (chapterDetail.Content || '').replace(/↵/g, `\n`);
     return (
       <div className='novelPage-container'>
-        <HeaderBack title={chapterDetail.ChapterName}/>
+        <HeaderBack title={chapterDetail.ChapterName} query={this.query} {...this.props}/>
         {
           loading ? <img className='loading' src={require('../assets/loading.svg')} /> : (
             <React.Fragment>
-              <div className='content' css={[fontSizeObj[fontSize], backColor[backColorCon]] }>
+              <NovelBar setFont={this.setFont} setBackColor={this.setBackColor} ifCloseLight={this.ifCloseLight}/> 
+              <div className='content' css={[fontSizeObj[fontSize], backColor[backColorCon], closeLight ? [closeLightStyle] : '',  ] }>
+                <div className='navigate-container' css={closeLight ? navigateContainer['black'] :  navigateContainer['yellow'] }>
+                  <div onClick={
+                    e => {
+                      this.queryNewChapter(0);
+                    }
+                  }>上一章</div>
+                  <div onClick={
+                    e => {
+                      navigate(
+                        `/novel`,
+                        {
+                          state: {
+                            ID: chapterDetail.NovelID,
+                          }
+                        }
+                      )
+                    }
+                  }>回目录</div>
+                  <div onClick={
+                    e => {
+                      this.queryNewChapter(1);
+                    }
+                  }>下一章</div>
+                  <div onClick={
+                    e => {
+
+                    }
+                  }>进书架</div>
+                </div>
+                <div className='title'>{chapterDetail.ChapterName}</div>
                 {
                   content
                 }
@@ -71,4 +165,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { setChapterDetailAsync })(NovelPage);
+export default connect(mapStateToProps, { setChapterDetailAsync, getNewChapterAsync })(NovelPage);

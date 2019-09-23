@@ -25,7 +25,7 @@ export class ChapterList extends Component {
     return chapterList;
   }
   render() {
-    const { List = [], total = 0, query, queryType, loading } = this.props;
+    const { List = [], total = 0, query, queryType, loading, backToCatalog } = this.props;
     let { pageIndex } = this.state;
     let silceList = this.sliceChapter(List, 20);
     let nowList = silceList[pageIndex-1];
@@ -33,13 +33,13 @@ export class ChapterList extends Component {
       <div className='list-items'>
         {
           nowList.map(item => {
-            console.log(item.ChapterName)
             return (
               <div key={item.ID} className='list-item'>
-                <Link to='novelPage'
+                <Link to={`/novelPage?ID=${item.ID}`}
                 state={{
-                  ID: item.ID
+                  ID: item.ID,
                 }}
+                partiallyActive={true}
                 ><span className='name'>{item.ChapterName}</span> </Link>
               </div>
             )

@@ -1,0 +1,19 @@
+.novelbar-container {
+  background-color: $barGrey;
+  padding: 10px;
+  border-bottom: $boderGrey;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    font-size: 14px;
+    border: 1px solid $borderBlue;
+    padding: 2px 4px;
+    margin-left: 10px;
+    border-radius: 4px;
+  }
+
+  .active {
+    background-color: rgba(174, 174, 174, 1.0);
+  }
+}

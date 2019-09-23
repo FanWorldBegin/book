@@ -9,8 +9,23 @@ const routes = {
   novel: '/novel', //根据书籍ID查询书籍
   chapters: '/novel/chapters', // 根据章节ID查询章节
   chapter: '/chapter', //根据ID查询章节
+  chapterNext: '/chapter/next', //查询下一章或上一章
   
 }
+/**
+ * 查询下一章或上一章;
+ * @param {*} data 
+ * @param {*} ID 
+ */
+export async function searchChapterNext({ ID, Flag }) {
+  return await $R.get(routes.chapterNext, {
+    params: {
+      ID,
+      Flag,
+    }
+  });
+}
+
 
 /**
  * 查看小说章节;

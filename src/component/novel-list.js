@@ -32,7 +32,7 @@ export class NovelList extends Component {
           })
         }
         <div className='paging-container'>
-          <div className='paging-item ' onClick={
+          <div className='paging-item' onClick={
             e => {
 
               this.setState({

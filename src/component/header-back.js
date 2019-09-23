@@ -11,10 +11,14 @@ export class HeaderBack extends Component {
 
   render() {
     const { title } = this.props;
+    const { path } = this.props
     return (
       <div className='header-container'>
         <span className='back-btn' onClick={
           e=>{
+            if (path == '/novelPage/') {
+              this.props.query();
+            }
             window.history.back();  
           }
         }>返回</span>
