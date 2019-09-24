@@ -11,27 +11,49 @@ class WholeNovel extends Component {
     this.state = {
       active: 0,
       loading: true,
+      pageIndex: 1,
     };
+  }
+  //下一页
+  pageIndexAdd = (total) => {
+    this.setState((state, props)=>({
+      pageIndex: state.pageIndex < Math.ceil(total / 20) ? state.pageIndex + 1 : Math.ceil(total / 20)
+    }))
+  }
 
+  //上一页
+  pageIndexMinus = () => {
+    this.setState((state, props) => ({
+      pageIndex: state.pageIndex > 1 ? state.pageIndex - 1 : 1
+    }))
+  }
+
+  //尾页
+  pageIndexEnd = (total) => {
+    this.setState({
+      pageIndex: Math.ceil(total / 20)
+    })
   }
 
   componentDidMount() {
-    this.query();
+    this.query({
+      pageIndex: 1,
+    });
   }
 
-  query = async() => {
+  query = async ({ pageIndex }) => {
     this.setState({
       loading: true,
     })
     await this.props.setWholeNovelListAsync({
-      pageIndex: 1
+      pageIndex
     });
     this.setState({
       loading: false,
     })
   }
   render() {
-    let { active, loading  } = this.state;
+    let { pageIndex, loading  } = this.state;
     const { wholeNovelList = [], wholeNovelTotal = 0, } = this.props;
     return (
       <div>
@@ -43,7 +65,10 @@ class WholeNovel extends Component {
               <NovelList rankList={wholeNovelList}
                 total={wholeNovelTotal}
                 query={this.query}
-                loading={loading}
+                pageIndex={pageIndex}
+                pageIndexAdd={this.pageIndexAdd}
+                pageIndexMinus={this.pageIndexMinus}
+                pageIndexEnd={this.pageIndexEnd}
               />
             </div>
           )
@@ -57,7 +82,6 @@ class WholeNovel extends Component {
 
 //在reducer 中创建counter 的reducer
 const mapStateToProps = (state) => {
-  console.log(state)
   const { novelList = {} } = state
   return {
     wholeNovelList: novelList.wholeNovelList, //全本小说分类列表

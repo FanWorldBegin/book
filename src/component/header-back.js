@@ -10,8 +10,7 @@ export class HeaderBack extends Component {
   }
 
   render() {
-    const { title } = this.props;
-    const { path } = this.props
+    const { title, path } = this.props;
     return (
       <div className='header-container'>
         <span className='back-btn' onClick={

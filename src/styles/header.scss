@@ -1,0 +1,26 @@
+.header-container {
+  height: 50px;
+  background-color: rgba(0, 123, 177, 1.0);
+  width: 100%;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .login-container {
+    display: flex;
+  }
+
+  .log-btn {
+    background-color: rgba(101, 187, 236, 1.0);
+    color: #fff;
+    padding: 4px 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+
+  }
+}

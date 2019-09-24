@@ -67,7 +67,7 @@ const wholeNovelList = (res) => {
 
 export const setWholeNovelListAsync = ({pageIndex}) => {
   return async (dispatch) => {
-    var res = await getwholeNovelList('type', pageIndex);
+    var res = await getwholeNovelList({pageIndex});
     dispatch(wholeNovelList(res))
   }
 

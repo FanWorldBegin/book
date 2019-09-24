@@ -10,8 +10,36 @@ const routes = {
   chapters: '/novel/chapters', // 根据章节ID查询章节
   chapter: '/chapter', //根据ID查询章节
   chapterNext: '/chapter/next', //查询下一章或上一章
-  
+  customer: '/customer', //注册会员
+  login: '/login', //登录
 }
+
+/**
+ *  登录
+ * @param {*} data 
+ * @param {*} ID 
+ */
+export async function userLogin({ Account, LoginPassword }) {
+  return await $R.post(routes.login, {
+    Account,
+    LoginPassword,
+  });
+}
+
+
+/**
+ *  注册
+ * @param {*} data 
+ * @param {*} ID 
+ */
+export async function userRegister({ Account, LoginPassword }) {
+  return await $R.post(routes.customer, {
+    Account,
+    LoginPassword,
+  });
+}
+
+
 /**
  * 查询下一章或上一章;
  * @param {*} data 
@@ -130,12 +158,12 @@ export async function categoryList(type, pageNumber) {
 /**
  * 全本小说列表查询;
  */
-export async function getwholeNovelList(type, pageNumber) {
-  console.log('pageNumber')
-  console.log(pageNumber)
+export async function getwholeNovelList({ pageIndex}) {
+  console.log('全本小说页')
+  console.log(pageIndex)
   return await $R.get(routes.novels, {
     params: {
-      PageNum: pageNumber,
+      PageNum: pageIndex,
       PageSize: 20,
       Status: 1, //已完结
     }

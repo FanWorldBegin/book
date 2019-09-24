@@ -5,18 +5,13 @@ export class NovelList extends Component {
 
   constructor(props) {
     super(props);
-    this.state= {
-      pageIndex: 1,
-    }
   }
 
   componentDidMount() {
   }
 
   render() {
-    const { rankList = [], total = 0, query, queryType, loading} = this.props;
-
-    let { pageIndex } = this.state;
+    const { rankList = [], total = 0, query, queryType, pageIndex, pageIndexAdd, pageIndexMinus, pageIndexEnd } = this.props;
     return (
       <div className='list-items'>
         {
@@ -33,38 +28,29 @@ export class NovelList extends Component {
         }
         <div className='paging-container'>
           <div className='paging-item' onClick={
-            e => {
-
-              this.setState({
-                pageIndex: pageIndex > 1 ? pageIndex - 1 : 1
-              }, () => {
-                  if (pageIndex != 1) {
-                    let { pageIndex } = this.state;
-                    query({ queryType, pageIndex})
-                  }
-              })
-
+            async e => {
+              if (pageIndex > 1) {
+                pageIndexMinus()
+                query({ queryType, pageIndex });
+              }
             }
           }>上页</div>
           <div className='paging-item paging-item2' onClick={
-            e=>{
-              this.setState({
-                pageIndex: pageIndex < Math.ceil(total / 20) ? pageIndex + 1 : Math.ceil(total / 20)
-              }, () =>{
+             async e =>{
+               if (pageIndex < Math.ceil(total / 20)){
+                 pageIndexAdd(total)
+                 query({ queryType, pageIndex });
+              }
 
-                  let { pageIndex } = this.state;
-                  query({ queryType, pageIndex })
-              })
             }
           }>下页</div>
+
           <div className='paging-item paging-item2' onClick={
-            e=>{
-              this.setState({
-                pageIndex: Math.ceil(total / 20),
-              }, () => {
-                  query({ queryType, pageIndex: Math.ceil(total / 20) })
-              })
-             
+            async e=>{
+              if (pageIndex != Math.ceil(total / 20)) {
+                pageIndexEnd(total)
+                query({ queryType, pageIndex });
+              }
             }
           }>尾页</div>
         </div>
