@@ -54,7 +54,6 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   var {users} = state;
-  console.log(state)
   return {
     userInfo: users.userInfo,
   }

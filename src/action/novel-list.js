@@ -1,6 +1,22 @@
-import { novelsets, rankingtypes, rankingList, getwholeNovelList } from '../config/api/index';
+import { novelsets, rankingtypes, rankingList, getwholeNovelList, queryCollection } from '../config/api/index';
 import { SET_COVER_NOVEL_LIST, SET_RANK_LIST_TYPE, 
-  SET_RANK_LIST, SET_WHOLE_NOVEL_LIST, } from './constants';
+  SET_RANK_LIST, SET_WHOLE_NOVEL_LIST, SET_COLLECTION } from './constants';
+
+  // 收藏列表
+const setNovelList = (list) =>{
+  return {
+    type: SET_COLLECTION,
+    filter: list,
+
+  }
+}
+
+export const setNovelListAsync = ({ pageIndex }) => {
+  return async (dispatch) => {
+    var res = await queryCollection({ pageIndex })
+    dispatch(setNovelList(res))
+  }
+}
 //主页novelList
 const setCoverNovelList = (novelList) => {
   return {
@@ -9,7 +25,7 @@ const setCoverNovelList = (novelList) => {
   }
 }
 
-export const setCoverNovelListAsync = (dispatch) => {
+export const setCoverNovelListAsync = () => {
   return async (dispatch) => {
     var res = await novelsets(1);
     console.log(res)
@@ -47,10 +63,9 @@ const rankList = (res) => {
 
 
 
-export const setRankListAsync = (sort) => {
+export const setRankListAsync = ({ pageIndex, type } ) => {
   return async (dispatch) => {
-    var res = await rankingList(sort);
-    res = (res || {}).Result;
+    var res = await rankingList({ pageIndex, type });
     dispatch(rankList(res))
   }
 

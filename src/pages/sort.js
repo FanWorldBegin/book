@@ -12,6 +12,7 @@ class Sort extends Component {
       active: 0,
       queryType: 1,
       loading: true,
+      pageIndex: 1,
     };
     
   }
@@ -22,7 +23,26 @@ class Sort extends Component {
       pageIndex: 1,
     });
   }
+  //下一页
+  pageIndexAdd = (total) => {
+    this.setState((state, props) => ({
+      pageIndex: state.pageIndex < Math.ceil(total / 20) ? state.pageIndex + 1 : Math.ceil(total / 20)
+    }))
+  }
 
+  //上一页
+  pageIndexMinus = () => {
+    this.setState((state, props) => ({
+      pageIndex: state.pageIndex > 1 ? state.pageIndex - 1 : 1
+    }))
+  }
+
+  //尾页
+  pageIndexEnd = (total) => {
+    this.setState({
+      pageIndex: Math.ceil(total / 20)
+    })
+  }
   query = async ({ queryType, pageIndex}) => {
     this.setState({
       loading: true,
@@ -36,7 +56,7 @@ class Sort extends Component {
     })
   }
   render() {
-    let { active, queryType, loading } = this.state;
+    let { active, queryType, loading, pageIndex } = this.state;
     const { categoryList = [], categoryTotal = 0, catePagingIndex, } = this.props;
     return (
       <div>
@@ -70,8 +90,10 @@ class Sort extends Component {
                   total={categoryTotal}
                   query={this.query}
                   queryType={queryType}
-                  pagingIndex={catePagingIndex}
-                  loading={loading}
+                  pageIndex={pageIndex}
+                  pageIndexAdd={this.pageIndexAdd}
+                  pageIndexMinus={this.pageIndexMinus}
+                  pageIndexEnd={this.pageIndexEnd}
                 />
 
               </div>
@@ -92,7 +114,6 @@ const mapStateToProps = (state) => {
   return {
     categoryList: novelSort.categoryList, //小说分类列表
     categoryTotal: novelSort.categoryTotal, //小说分类列表长度
-    catePagingIndex: novelSort.catePagingIndex,
   }
 }
 

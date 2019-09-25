@@ -12,3 +12,4 @@ export const SET_WHOLE_NOVEL_LIST = 'SET_WHOLE_NOVEL_LIST'; //全本小说查询
 export const SET_NIVEL_DETAIL = 'SET_NIVEL_DETAIL'; //获取但本小说信息
 export const SET_NOVEL_CHAPTER = 'SET_NIVEL_CHAPTER'; //根据章节ID查询章节
 export const SET_CHAPTER_DETAIL = 'SET_CHAPTER_DETAIL'; //查询章节详细信息
+export const SET_COLLECTION = 'SET_COLLECTION'; //设置收藏列表

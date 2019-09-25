@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HeaderBack } from '../component/header-back';
+import HeaderBack  from '../component/header-back';
 import { connect } from 'react-redux';
 import { setChapterDetailAsync, getNewChapterAsync } from '../action';
 import { css } from "@emotion/core"

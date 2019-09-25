@@ -13,6 +13,35 @@ const routes = {
   customer: '/customer', //注册会员
   login: '/login', //登录
   logout: '/logout', //登出
+  collection: '/collection', //创建收藏;
+  collections: '/collections', // 根据会员ID查询收藏
+}
+
+/**
+ *  查询收藏
+ * @param {*} NovelID
+ * @param {*} ID 
+ */
+export async function queryCollection({ pageIndex }) {
+  return await $R.get(routes.collections, {
+    params: {
+      PageNum: pageIndex,
+      PageSize: 20,
+    }
+  });
+}
+
+
+/**
+ *  创建收藏
+ * @param {*} NovelID
+ * @param {*} ID 
+ */
+export async function addCollection({ NovelID, NovelName }) {
+  return await $R.post(routes.collection, {
+    NovelID,
+    NovelName,
+  });
 }
 
 /**
@@ -104,7 +133,7 @@ export async function novelsets(typeID) {
   console.log('发送了')
   return await $R.get(routes.novelsets, {
     params: {
-      PageNum: 2,
+      PageNum: 1,
       PageSize: 20,
       SetType: typeID,
     }
@@ -139,10 +168,10 @@ export async function rankingtypes() {
 /**
  * 查询小说排行分类;
  */
-export async function rankingList(type) {
+export async function rankingList({ pageIndex, type }) {
   return await $R.get(routes.rankings, {
     params: {
-      PageNum: 1,
+      PageNum: pageIndex,
       PageSize: 20,
       RankingTypeID: type,
     }
@@ -154,8 +183,6 @@ export async function rankingList(type) {
  * 查询小说分类列表;
  */
 export async function categoryList(type, pageNumber) {
-  console.log('pageNumber')
-  console.log(pageNumber)
   return await $R.get(routes.novels, {
     params: {
       PageNum: pageNumber,
