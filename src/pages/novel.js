@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { setNovelDetailAsync, setNovelChapterAsync } from '../action/index';
 import { novelState, categories } from '../config/req-filter';
 import { ChapterList } from '../component/chapter-list';
+import { Link, navigate} from "gatsby";
 
 function GMTToStr(time){
   let date = new Date(time)
@@ -50,7 +51,8 @@ function GMTToStr(time){
     const {  novelDetail, chapters } = this.props;
     let { loading } = this.state;
     var sliceChapters = this.sliceChapters(chapters);
-    var { ID } = this.props.location.state
+    var { ID } = this.props.location.state;
+
     return (
       <div className='novel-container'>
         <HeaderBack/>
@@ -68,7 +70,24 @@ function GMTToStr(time){
                   <div><span>状态：</span>{novelState[novelDetail.Status]}</div>
                   <div><span>更新：</span>{GMTToStr(novelDetail.UpdatedAt)}</div>
                   <div className='black'><span>最新：</span>{novelDetail.NewUpdateChapter ? novelDetail.NewUpdateChapter : '暂无'}</div>
-                </div>
+                </div>      
+              </div>
+              <div className='btn-container'>
+                <div className='novel-button' 
+                  onClick={
+                    e=>{
+                      // var chapterReverse = chapters.reverse();
+                      const chapterOne = (chapters || [])[0];
+                      navigate(
+                        `/novelPage?ID=${chapterOne.ID}`,
+                        {
+                          state: { ID: chapterOne.ID },
+                        }
+                      )
+                    }
+                  }
+                  >开始阅读</div>
+                <button className='novel-button'>加入书架</button>
               </div>
               <div className='content-detail'>
                 <div className='title'>{novelDetail.NovelName} 小说简介</div>
@@ -84,7 +103,12 @@ function GMTToStr(time){
                           // console.log(item.ChapterName)
                           return (
                             <div key={item.ID} className='list-item'>
-                              <span className='name'>{item.ChapterName}</span>
+                              <Link to={`/novelPage?ID=${item.ID}`}
+                                state={{
+                                  ID: item.ID,
+                                }}>
+                                <span className='name'>{item.ChapterName}</span>
+                              </Link>
                             </div>
                           )
                         })

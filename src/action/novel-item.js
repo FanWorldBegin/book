@@ -61,8 +61,10 @@ export const getNewChapterAsync = ({ ID, Flag }) => {
   return async (dispatch) => {
     var res = await searchChapterNext({ ID, Flag });
     res = (res || {}).Result;
-    console.log(res)
-    dispatch(chapterDetail(res))
+    //判断是否存在章节
+    if (res.ID != 0) {
+      dispatch(chapterDetail(res))
+    }
   }
 }
 

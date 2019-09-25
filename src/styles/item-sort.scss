@@ -1,0 +1,22 @@
+.itemize-container {
+  .items {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .itemize-item {
+      width: 20%;
+      min-width: 50px;
+      text-align: center;
+      color: black;
+      padding: 2px 0px;
+
+    }
+  }
+
+  .active {
+    color: $themeColor!important;
+  }
+
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from '../component/header';
+import Header from '../component/header';
 import { connect } from 'react-redux';
 import { ItemSort } from '../component/item-sort';
 import { setCoverNovelListAsync } from '../action/index';
@@ -30,12 +30,10 @@ class HomePage extends Component {
   }
 
   query = async() => {
-    console.log('before query');
     await this.props.setCoverNovelListAsync();
     this.setState({
       loading: false,
     })
-    console.log('after query');
   }
 
   render() {
@@ -72,7 +70,6 @@ class HomePage extends Component {
 }
 //在reducer 中创建counter 的reducer
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     novelList: state.novelList,
   }

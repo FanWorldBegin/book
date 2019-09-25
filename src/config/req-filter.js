@@ -2,9 +2,16 @@ import { RequestClass } from 'uke-request';
 
 const $R = new RequestClass();
 // 可以为每一个请求对象设置配置
+var Token = '';
+if (localStorage.getItem('userInfo')) {
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+  Token = userInfo.Token;
+}
 $R.setConfig({
   baseUrl: 'http://52.196.57.193:3070/ncc', // 默认的请求地址
-  commonHeaders: {} // 所有的请求 headers
+  commonHeaders: {
+    Authorization: Token,
+  },// 所有的请求 headers
 });
 
 

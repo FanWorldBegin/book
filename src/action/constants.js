@@ -1,4 +1,5 @@
 export const USER_LOGIN_IN = 'USER_LOGIN_IN'; //用户登陆
+export const USER_LOGIN_OUT = 'USER_LOGIN_OUT'; //用户登陆
 export const USER_LOGIN_REGISTER = 'USER_LOGIN_REGISTER'; //用户注册
 export const INDEX_NOVEL_RECOMMEND = 'INDEX_NOVEL_RECOMMEND';
 export const SET_COVER_NOVEL_LIST = 'SET_COVER_NOVEL_LIST';  //主页的小说推荐

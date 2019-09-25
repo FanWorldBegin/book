@@ -90,15 +90,20 @@ class NovelPage extends Component {
     console.log(this.props)
     const { chapterDetail={} } = this.props;
     const { ID } = chapterDetail;
-    navigate(
-      `/novelPage?ID/${ID}`,
-      {
-        state: {
-          ID: ID,
+    console.log(ID)
+    if(ID !==  0) {
+      navigate(
+        `/novelPage?ID=${ID}`,
+        {
+          state: {
+            ID: ID,
+          }
         }
-      }
-    )
+      )
+    }
+
   }
+
   render() {
     var { loading, fontSize, backColorCon, closeLight } = this.state;
     const {ID} = this.props.location.state;

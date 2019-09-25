@@ -16,13 +16,14 @@ export class NovelList extends Component {
       <div className='list-items'>
         {
           rankList.map(item => {
-  
             return (
-              <div key={item.ID} className='list-item'>
-                <span className='name'>{item.NovelName}</span> /
+              <Link to={`/novel`} state={{ ID: item.ID }} key={item.ID} >
+                <div key={item.ID} className='list-item'>
+                  <span className='name'>{item.NovelName}</span> /
                     <span className='author'>{item.Author}</span>
+                </div>
+              </Link>
 
-              </div>
             )
           })
         }

@@ -43,30 +43,34 @@ export default class NovellistItem extends Component {
         const { Novel = {} } = item;
         return (
           index == 0 ? 
-            <div className='item-container' key={`${item.ID}${item.Sort}`}>
-              <div className='item-img'>
-                <img src={Novel.PicUrl} />
-              </div>
-              <div className='item-content'>
-                <div className='title'>
-                  {Novel.NovelName}
+            <div key={`${item.ID}${item.Sort}`}>
+              <Link to={`/novel`} state={{ ID: Novel.ID }} className='item-container'>
+                <div className='item-img'>
+                  <img src={Novel.PicUrl} />
                 </div>
-                <div className='author'>
-                  作者：{Novel.Author}
+                <div className='item-content'>
+                  <div className='title'>
+                    {Novel.NovelName}
+                  </div>
+                  <div className='author'>
+                    作者：{Novel.Author}
+                  </div>
+                  <div className='Description'>
+                    {Novel.Description}
+                  </div>
                 </div>
-                <div className='Description'>
-                  {Novel.Description}
-                </div>
-              </div>
+              </Link>
             </div> :
             <div className='item-simple-container' key={`${item.ID}${item.Sort}`}>
-              <span className='title'>
-                {Novel.NovelName}
-              </span> /
-
-              <span className='author'>
+              <Link to={`/novel`} state={{ ID: Novel.ID }}>
+                <span className='title'>
+                  {Novel.NovelName}
+                </span> /
+  
+                <span className='author'>
                   {Novel.Author}
-              </span>
+                </span>
+              </Link>
             </div>
         )
       })

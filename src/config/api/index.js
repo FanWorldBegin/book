@@ -12,17 +12,28 @@ const routes = {
   chapterNext: '/chapter/next', //查询下一章或上一章
   customer: '/customer', //注册会员
   login: '/login', //登录
+  logout: '/logout', //登出
 }
+
+/**
+ *  注册
+ * @param {*} data 
+ * @param {*} ID 
+ */
+export async function userLogout() {
+  return await $R.post(routes.logout);
+}
+
 
 /**
  *  登录
  * @param {*} data 
  * @param {*} ID 
  */
-export async function userLogin({ Account, LoginPassword }) {
+export async function userLogin({ Password, Username }) {
   return await $R.post(routes.login, {
-    Account,
-    LoginPassword,
+    Password,
+    Username,
   });
 }
 

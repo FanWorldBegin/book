@@ -32,6 +32,22 @@
     }
   }
 
+  .btn-container {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    .novel-button {
+      width: 48%;
+      padding: 6px 0px;
+      background-color: $themeColor;
+      font-size: 16px;
+      color: #fff;
+      border: 0px;
+      border-radius: 4px;
+      text-align: center;
+    }
+  }
+
   .content-detail {
     .title {
       padding: 10px;

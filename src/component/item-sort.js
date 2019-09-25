@@ -14,11 +14,11 @@ export class ItemSort extends Component {
     return (
       <div className='itemize-container'>
         <div className='items'>
-          <Link to="/home" className='itemize-item'>首页</Link>
-          <Link to="/sort" className='itemize-item'>分类</Link>
-          <Link to="/wholeNovel" className='itemize-item'>全本</Link>
-          <Link to="/rank" className='itemize-item'>排行</Link>
-          <Link to="/users" className='itemize-item'>书架</Link>
+          <Link to="/home" className='itemize-item' activeClassName="active">首页</Link>
+          <Link to="/sort" className='itemize-item' activeClassName="active">分类</Link>
+          <Link to="/wholeNovel" className='itemize-item' activeClassName="active">全本</Link>
+          <Link to="/rank" className='itemize-item' activeClassName="active">排行</Link>
+          <Link to="/bookrack" className='itemize-item' activeClassName="active">书架</Link>
         </div>
       </div>
     )

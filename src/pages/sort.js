@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header } from '../component/header';
+import Header from '../component/header';
 import { ItemSort } from '../component/item-sort';
 import { connect } from 'react-redux';
 import { setCategoryListAsync, } from '../action/index';

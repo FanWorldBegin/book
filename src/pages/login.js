@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { HeaderBack } from '../component/header-back';
 import { navigate } from "gatsby";
 import { connect } from 'react-redux';
-import { setUserRegisterAsync } from '../action/user';
+import { setUserInfoAsync } from '../action/user';
 
-class RegisterPage extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      resgisterInfo: '',
-      LoginPassword: '',
-      Account: '',
-      email: ''
+      loginInfo: '',
+      Password: '',
+      Username: '',
     }
   }
   componentDidMount() {
@@ -19,39 +18,38 @@ class RegisterPage extends Component {
   }
   handleChange = (event) => {
     var type = event.target.name;
-    console.log(type)
-    console.log(event.target.value)
     this.setState({
       [type]: event.target.value
     });
   }
   handleSubmit = async (event) => {
     event.preventDefault()
-    var userInfo = this.state;
-    console.log(userInfo)
-    await this.props.setUserRegisterAsync(userInfo);
-    var { registerState } = this.props;
-    if (registerState.Message == 'success') {
+    await this.props.setUserInfoAsync({
+      Password: this.state.Password,
+      Username: this.state.Username,
+    });
+    var { userInfo } = this.props;
+    if (userInfo.ID) {
       this.setState({
-        resgisterInfo: <div className="info info-success">注册成功，即将跳转</div>
+        loginInfo: <div className="info info-success">登录成功，即将跳转</div>
       })
       setTimeout(e => {
         navigate(
-          "/login",
+          "/",
         )
       }, 1000)
     } else {
       this.setState({
-        Account: '',
-        LoginPassword: '',
-        email: '',
-        resgisterInfo: <div className="info info-fail ">注册失败，请重新输入。</div>
+        Password: '',
+        Username: '',
+        loginInfo: <div className="info info-fail ">登录失败，请重新输入。</div>
       })
     }
 
   }
   render() {
-    var { resgisterInfo } = this.state;
+    var { loginInfo } = this.state;
+    console.log(this.props)
     return (
       <div className='register-container'>
         <HeaderBack title='登陆' />
@@ -59,11 +57,11 @@ class RegisterPage extends Component {
           <form onSubmit={this.handleSubmit}>
             <label>
               <span className='title'>账号：</span>
-              <input type='text' name='Account' required="required" value={this.state.Account} onChange={this.handleChange} />
+              <input type='text' name='Username' required="required" value={this.state.Username} onChange={this.handleChange} />
             </label>
             <label>
               <span className='title'>密码：</span>
-              <input type='password' name='LoginPassword' required="required" value={this.state.LoginPassword} onChange={this.handleChange} />
+              <input type='password' name='Password' required="required" value={this.state.Password} onChange={this.handleChange} />
             </label>
             <button type="submit">登陆</button>
             <button type="button" onClick={e => {
@@ -74,7 +72,7 @@ class RegisterPage extends Component {
             }>没有账号，点击注册</button>
 
             <div className='info-container'>
-              {resgisterInfo}
+              {loginInfo}
             </div>
           </form>
 
@@ -87,9 +85,9 @@ class RegisterPage extends Component {
 const mapStateToProps = (state) => {
   var { users = {} } = state;
   return {
-    registerState: users.registerState,
+    userInfo: users.userInfo,
   }
 }
 
 
-export default connect(mapStateToProps, { setUserRegisterAsync })(RegisterPage);
+export default connect(mapStateToProps, { setUserInfoAsync })(LoginPage);
