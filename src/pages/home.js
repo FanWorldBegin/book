@@ -26,6 +26,7 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+    console.log('home')
     this.query()
   }
 

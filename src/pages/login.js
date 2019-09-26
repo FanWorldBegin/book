@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HeaderBack } from '../component/header-back';
+import HeaderBack from '../component/header-back';
 import { navigate } from "gatsby";
 import { connect } from 'react-redux';
 import { setUserInfoAsync } from '../action/user';

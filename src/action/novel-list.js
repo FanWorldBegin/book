@@ -13,7 +13,7 @@ const setNovelList = (list) =>{
 
 export const setNovelListAsync = ({ pageIndex }) => {
   return async (dispatch) => {
-    var res = await queryCollection({ pageIndex })
+    var res = await queryCollection({ pageIndex });
     dispatch(setNovelList(res))
   }
 }

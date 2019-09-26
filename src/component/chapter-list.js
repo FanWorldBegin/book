@@ -32,7 +32,7 @@ export class ChapterList extends Component {
     return (
       <div className='list-items'>
         {
-          nowList.map(item => {
+          (nowList || []).map(item => {
             return (
               <div key={item.ID} className='list-item'>
                 <Link to={`/novelPage?ID=${item.ID}`}

@@ -4,7 +4,6 @@ import { ItemSort } from '../component/item-sort';
 import { connect } from 'react-redux';
 import { setRankListSortAsync, setRankListAsync } from '../action/index';
 import { NovelList } from '../component/novel-list';
-import { timeout } from 'q';
 class Rank extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +44,8 @@ class Rank extends Component {
       type: queryType
     })
   }
+
+  
   queryListSort = async () => {
     this.setState({
       loading: true,
@@ -66,7 +67,7 @@ class Rank extends Component {
 
   render() {
     console.log(this.props.rankListType);
-    let { active, loading, pageIndex} = this.state;
+    let { active, loading, pageIndex, queryType} = this.state;
     console.log(active)
     const { rankListType = [], rankList = [], rankListTotal } = this.props;
     return (
@@ -98,6 +99,7 @@ class Rank extends Component {
               <div className='list-items'>
                 <NovelList rankList={rankList} 
                   total={rankListTotal}
+                  queryType={queryType}
                   query={this.query}
                   pageIndex={pageIndex}
                   pageIndexAdd={this.pageIndexAdd}

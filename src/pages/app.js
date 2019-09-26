@@ -3,9 +3,7 @@ import { newupdatenovels } from '../config/api/index';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../reducer/index';
 import HomePage from './home';
-import {Provider} from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from '../saga';
 
 // 调试工具 
 import {composeWithDevTools} from 'redux-devtools-extension';

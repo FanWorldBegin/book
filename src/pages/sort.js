@@ -4,7 +4,8 @@ import { ItemSort } from '../component/item-sort';
 import { connect } from 'react-redux';
 import { setCategoryListAsync, } from '../action/index';
 import { NovelList } from '../component/novel-list';
-import { categories } from '../config/req-filter';
+import { categories } from '../config/structure';
+const pageSize= 20;
 class Sort extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +27,7 @@ class Sort extends Component {
   //下一页
   pageIndexAdd = (total) => {
     this.setState((state, props) => ({
-      pageIndex: state.pageIndex < Math.ceil(total / 20) ? state.pageIndex + 1 : Math.ceil(total / 20)
+      pageIndex: state.pageIndex < Math.ceil(total / pageSize) ? state.pageIndex + 1 : Math.ceil(total / pageSize)
     }))
   }
 

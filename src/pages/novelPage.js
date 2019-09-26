@@ -43,16 +43,19 @@ class NovelPage extends Component {
   }
 
   componentDidMount() {
-    this.query(this.props.location.state.ID);
-    console.log('当页ID')
-    console.log(this.props.location.state.ID)
+    const { location={} } = this.props;
+    const { state = {} } = location
+    this.query(state.ID);
+
   }
 
   query = async () => {
     this.setState({
       loading: true,
     });
-    await this.props.setChapterDetailAsync(this.props.location.state.ID);
+    const { location = {} } = this.props;
+    const { state = {} } = location
+    await this.props.setChapterDetailAsync(state.ID);
     this.setState({
       loading: false,
     });
@@ -106,8 +109,7 @@ class NovelPage extends Component {
 
   render() {
     var { loading, fontSize, backColorCon, closeLight } = this.state;
-    const {ID} = this.props.location.state;
-    const { chapterDetail={} } = this.props;
+    const { chapterDetail = {}, location } = this.props;
     console.log(this.props)
     var content = (chapterDetail.Content || '').replace(/↵/g, `\n`);
     return (
@@ -143,7 +145,10 @@ class NovelPage extends Component {
                   }>下一章</div>
                   <div onClick={
                     e => {
-
+                      navigate(
+                        `/bookrack`,
+              
+                      )
                     }
                   }>进书架</div>
                 </div>

@@ -10,6 +10,7 @@ const intialState = {
   wholeNovelList:[], //全本小说
   wholeNovelTotal: 0,
   novelCollectionList: [], //  收藏小说列表
+  novelCollectionTotal: 0, 
 }
 
 const novelList = (state = intialState, action = {}) => {
@@ -37,7 +38,8 @@ const novelList = (state = intialState, action = {}) => {
     }
     case SET_COLLECTION: {
       return Object.assign({}, state, {
-        novelCollectionList: action.filter,
+        novelCollectionList: (action.filter || {}).Result,
+        novelCollectionTotal: (action.filter || {}).Count,
       })
     }
     default:

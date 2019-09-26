@@ -12,3 +12,20 @@ exports.onCreatePage = ({ page, actions }) => {
     createPage(page)
   }
 }
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  console.log('loader')
+  console.log(loaders)
+  if (stage === "build-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /uke-request/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    })
+  }
+}

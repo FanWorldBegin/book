@@ -1,5 +1,4 @@
 import { $R } from '../req-filter';
-
 const routes = {
   novelsets: '/novelsets', //首页展示
   newupdatenovels: '/newupdatenovels', //根据条件查询设置的页面展示小说;
@@ -18,12 +17,23 @@ const routes = {
 }
 
 /**
+ *  删除收藏
+ * @param {*} NovelID
+ * @param {*} ID 
+ */
+export async function delCollection({ ID }) {
+  return await $R.del(`${routes.collection}?ID=${ID}`, {
+  });
+}
+
+/**
  *  查询收藏
  * @param {*} NovelID
  * @param {*} ID 
  */
 export async function queryCollection({ pageIndex }) {
-  return await $R.get(routes.collections, {
+  return await $R.get({
+    urlL: routes.collections,
     params: {
       PageNum: pageIndex,
       PageSize: 20,

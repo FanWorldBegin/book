@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import HeaderBack from '../component/header-back';
 import { connect } from 'react-redux';
 import { setNovelDetailAsync, setNovelChapterAsync } from '../action/index';
-import { novelState, categories } from '../config/req-filter';
+import { novelState, categories } from '../config/structure';
 import { ChapterList } from '../component/chapter-list';
 import { Link, navigate} from "gatsby";
-import { addCollection } from '../config/api';
+import { addCollection, delCollection } from '../config/api';
+
 function GMTToStr(time){
   let date = new Date(time)
   let Str = date.getFullYear() + '/' +
@@ -28,8 +29,9 @@ function GMTToStr(time){
   }
 
   componentDidMount() {
-    console.log(this.props.location.state.ID)
-    this.query(this.props.location.state.ID);
+    const { location = {} } = this.props;
+    const { state = {} } = location
+    this.query(state.ID);
   }
 
   query = async(ID) => {
@@ -61,11 +63,23 @@ function GMTToStr(time){
        )
      }
   }
+
+   delCollection = async (ID) => {
+     const { userInfo = {} } = this.props;
+     if (userInfo.Token) {
+       var res = await delCollection({ ID });
+     } else {
+       navigate(
+         "/login",
+       )
+     }
+   }
   render() {
-    const {  novelDetail={}, chapters } = this.props;
+    const { novelDetail = {}, chapters, location={}} = this.props;
     let { loading } = this.state;
     var sliceChapters = this.sliceChapters(chapters);
-    var { ID } = this.props.location.state;
+    const { CollectionID } = novelDetail;
+    const { ID } = location.state || {};
 
     return (
       <div className='novel-container'>
@@ -101,11 +115,23 @@ function GMTToStr(time){
                     }
                   }
                 >开始阅读</button>
-                <button className='novel-button' onClick={
-                  e=>{
-                    this.addCollection();
-                  }
-                }>加入书架</button>
+                {
+                  CollectionID == 0 ? (
+                    <button className='novel-button' onClick={
+                      async e => {
+                        await this.addCollection();
+                        this.query(ID);
+                      }
+                    }>加入书架</button>
+                  ) : (
+                      <button className='novel-button' onClick={
+                        async e => {
+                          await this.delCollection(CollectionID);
+                          this.query(ID);
+                        }
+                      }>移除书架</button>
+                  )
+                }
               </div>
               <div className='content-detail'>
                 <div className='title'>{novelDetail.NovelName} 小说简介</div>

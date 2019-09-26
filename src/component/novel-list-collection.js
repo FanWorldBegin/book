@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "gatsby"
 
 const pageSize = 1;
-export class NovelList extends Component {
+export class NovelListCollection extends Component {
 
   constructor(props) {
     super(props);
@@ -17,13 +17,26 @@ export class NovelList extends Component {
       <div className='list-items'>
         {
           rankList.map(item => {
+            const { Novel = {} } = item;
             return (
-              <Link to={`/novel`} state={{ ID: item.ID }} key={item.ID} >
-                <div key={item.ID} className='list-item'>
-                  <span className='name'>{item.NovelName}</span> /
-                    <span className='author'>{item.Author}</span>
-                </div>
-              </Link>
+              <div key={`${item.ID}${item.Sort}`}>
+                <Link to={`/novel`} state={{ ID: Novel.ID }} className='item-container'>
+                  <div className='item-img'>
+                    <img src={Novel.PicUrl} />
+                  </div>
+                  <div className='item-content'>
+                    <div className='title'>
+                      {Novel.NovelName}
+                    </div>
+                    <div className='author'>
+                      作者：{Novel.Author}
+                    </div>
+                    <div className='Description'>
+                      {Novel.Description}
+                    </div>
+                  </div>
+                </Link>
+              </div>
 
             )
           })
