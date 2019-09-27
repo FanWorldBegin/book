@@ -38,6 +38,7 @@ class NovelPage extends Component {
       fontSize: "mid",
       backColorCon: "yellow",
       closeLight: false, //是否关灯
+      fontSize: 'big',
     };
   }
 
@@ -126,6 +127,7 @@ class NovelPage extends Component {
         ) : (
           <React.Fragment>
             <NovelBar
+              fontSize={fontSize}
               setFont={this.setFont}
               setBackColor={this.setBackColor}
               ifCloseLight={this.ifCloseLight}/>
