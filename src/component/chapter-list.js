@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "gatsby"
+import { Link } from "gatsby";
 
 export class ChapterList extends Component {
 
@@ -7,7 +7,7 @@ export class ChapterList extends Component {
     super(props);
     this.state = {
       pageIndex: 1,
-    }
+    };
   }
 
   componentDidMount() {
@@ -35,14 +35,13 @@ export class ChapterList extends Component {
           (nowList || []).map(item => {
             return (
               <div key={item.ID} className='list-item'>
-                <Link to={`/novelPage?ID=${item.ID}`}
-                state={{
-                  ID: item.ID,
-                }}
-                partiallyActive={true}
-                ><span className='name'>{item.ChapterName}</span> </Link>
+                <Link to={`/novelPage/`}
+                  state={{
+                    ID: item.ID,
+                  }}
+                  partiallyActive={true}><span className='name'>{item.ChapterName}</span> </Link>
               </div>
-            )
+            );
           })
         }
         <div className='paging-container'>
@@ -54,9 +53,9 @@ export class ChapterList extends Component {
               }, () => {
                 if (pageIndex != 1) {
                   let { pageIndex } = this.state;
-                  query({ queryType, pageIndex })
+                  query({ queryType, pageIndex });
                 }
-              })
+              });
 
             }
           }>上页</div>
@@ -68,7 +67,7 @@ export class ChapterList extends Component {
 
                 // let { pageIndex } = this.state;
                 // query({ queryType, pageIndex })
-              })
+              });
             }
           }>下页</div>
           <div className='paging-item paging-item2' onClick={
@@ -76,8 +75,8 @@ export class ChapterList extends Component {
               this.setState({
                 pageIndex: Math.ceil(total / 20),
               }, () => {
-                query({ queryType, pageIndex: Math.ceil(total / 20) })
-              })
+                query({ queryType, pageIndex: Math.ceil(total / 20) });
+              });
 
             }
           }>尾页</div>
@@ -87,7 +86,7 @@ export class ChapterList extends Component {
           <div className='paging-item paging-item2'>当前 第{pageIndex}页</div>
         </div>
       </div>
-    )
+    );
   }
 
 }

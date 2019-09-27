@@ -1,4 +1,4 @@
-import { userRegister, userLogin, userLogout } from '../config/api/index';
+// import { userRegister, userLogout } from '../config/api/index';
 import { USER_LOGIN_IN, USER_LOGIN_REGISTER, USER_LOGIN_OUT } from './constants';
 
 //用户注册
@@ -9,7 +9,7 @@ const setUserRegister = (res) => {
   };
 };
 
-export const setUserRegisterAsync = (userInfo) => {
+export const setUserRegisterAsync = ({ userInfo, userRegister }) => {
   return async (dispatch) => {
     var res = await userRegister(userInfo);
     dispatch(setUserRegister(res));
@@ -27,7 +27,7 @@ export const setUserInfo = (res) => {
   };
 };
 
-export const setUserInfoAsync = (userInfo) => {
+export const setUserInfoAsync = ({ userInfo, userLogin }) => {
   return async (dispatch) => {
     var res = await userLogin(userInfo);
     dispatch(setUserInfo(res));
@@ -43,7 +43,7 @@ export const setUserLogout = (res) => {
   };
 };
 
-export const setUserLogoutAsync = () => {
+export const setUserLogoutAsync = ({userLogout}) => {
   return async (dispatch) => {
     var res = await userLogout();
     dispatch(setUserLogout(res));

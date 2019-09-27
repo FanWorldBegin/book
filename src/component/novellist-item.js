@@ -15,7 +15,7 @@ export default class NovellistItem extends Component {
       (novelList || []).map(item => {
         const { Novel = {} } = item;
         return (
-          <Link to={`/novel`} state={{ ID: Novel.ID }} className='item-container' key={`${item.ID}${item.Sort}`}>
+          <Link to={`/novel/`} state={{ ID: Novel.ID }} className='item-container' key={`${item.ID}${item.Sort}`}>
             <div className='item-img'>
               <img src={Novel.PicUrl} />
             </div>
@@ -31,9 +31,9 @@ export default class NovellistItem extends Component {
               </div>
             </div>
           </Link>
-        )
+        );
       })
-    )
+    );
   }
 
 
@@ -72,9 +72,9 @@ export default class NovellistItem extends Component {
                 </span>
               </Link>
             </div>
-        )
+        );
       })
-    )
+    );
   }
 
   render() {
@@ -85,6 +85,6 @@ export default class NovellistItem extends Component {
           detail ? this.withDetail(novelList) : this.noDetail(novelList)
         }
       </div>
-    )
+    );
   }
 }

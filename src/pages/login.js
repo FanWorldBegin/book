@@ -11,10 +11,10 @@ class LoginPage extends Component {
       loginInfo: '',
       Password: '',
       Username: '',
-    }
+    };
   }
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
   }
   handleChange = (event) => {
     var type = event.target.name;
@@ -23,33 +23,37 @@ class LoginPage extends Component {
     });
   }
   handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    const {API={}} = this.props;
     await this.props.setUserInfoAsync({
-      Password: this.state.Password,
-      Username: this.state.Username,
+      userInfo: {
+        Password: this.state.Password,
+        Username: this.state.Username,
+      },
+      userLogin: API.userLogin
     });
     var { userInfo } = this.props;
     if (userInfo.ID) {
       this.setState({
         loginInfo: <div className="info info-success">登录成功，即将跳转</div>
-      })
+      });
       setTimeout(e => {
         navigate(
           "/",
-        )
-      }, 1000)
+        );
+      }, 1000);
     } else {
       this.setState({
         Password: '',
         Username: '',
         loginInfo: <div className="info info-fail ">登录失败，请重新输入。</div>
-      })
+      });
     }
 
   }
   render() {
     var { loginInfo } = this.state;
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div className='register-container'>
         <HeaderBack title='登陆' />
@@ -67,7 +71,7 @@ class LoginPage extends Component {
             <button type="button" onClick={e => {
               navigate(
                 "/register",
-              )
+              );
             }
             }>没有账号，点击注册</button>
 
@@ -78,7 +82,7 @@ class LoginPage extends Component {
 
         </div>
       </div>
-    )
+    );
   }
 }
 //在reducer 中创建counter 的reducer
@@ -86,8 +90,8 @@ const mapStateToProps = (state) => {
   var { users = {} } = state;
   return {
     userInfo: users.userInfo,
-  }
-}
+  };
+};
 
 
 export default connect(mapStateToProps, { setUserInfoAsync })(LoginPage);

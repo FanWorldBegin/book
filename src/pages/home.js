@@ -14,7 +14,7 @@ const novelSort = [
   { index: 5, name: '侦探推理', detail: false },
   { index: 6, name: '网游动漫', detail: false },
   { index: 7, name: '科幻灵异', detail: false },
-]
+];
 
 class HomePage extends Component {
 
@@ -22,28 +22,36 @@ class HomePage extends Component {
     super(props);
     this.state = {
       loading: true,
-    }
+    };
   }
 
   componentDidMount() {
-    console.log('home')
-    this.query()
+    console.log('home');
+    console.log(this.props);
+    this.query();
   }
 
   query = async() => {
-    await this.props.setCoverNovelListAsync();
-    this.setState({
-      loading: false,
-    })
+    //查询封面书籍list
+    const {API={}} = this.props;
+    if (API.novelsets) {
+      await this.props.setCoverNovelListAsync({
+        novelsets: API.novelsets,
+      });
+      this.setState({
+        loading: false,
+      });
+    }
   }
 
   render() {
     var { coverRecommend  = [] } = this.props.novelList;
     coverRecommend = coverRecommend.Result;
     let { loading } = this.state;
+    console.log(this.props);
     return (
       <div>
-        <Header/>
+        <Header {...this.props}/>
         <ItemSort/>
         <div className='home-cover-stories'>
           {
@@ -56,7 +64,7 @@ class HomePage extends Component {
                         <div className='list-title'>{item.name}</div>
                         <NovellistItem detail={item.detail} novelList={(coverRecommend || {})[item.index]} />
                       </div>
-                    )
+                    );
                   })
                 }
               </div>
@@ -65,7 +73,7 @@ class HomePage extends Component {
 
         </div>   
       </div>
-    )
+    );
   }
 
 }
@@ -73,7 +81,7 @@ class HomePage extends Component {
 const mapStateToProps = (state) => {
   return {
     novelList: state.novelList,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, { setCoverNovelListAsync })(HomePage);

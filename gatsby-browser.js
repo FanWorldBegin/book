@@ -1,7 +1,6 @@
 // import "./src/styles/index.css"
-
 //在最外层包装
-import * as action from './src/action/index';
+import * as API from './src/config/api';
 const React = require('react');
 
 const Wrapper = ({ element, props }) => {
@@ -13,7 +12,7 @@ const Wrapper = ({ element, props }) => {
     <div className={isMobile ? 'mobile' : 'desktop'}>
       {React.cloneElement(element, {
         ...props,
-        action: { ...action},
+        API: { ...API},
         isMobile
       })}
     </div>

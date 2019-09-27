@@ -1,3 +1,4 @@
+
 import { $R } from '../req-filter';
 const routes = {
   novelsets: '/novelsets', //首页展示
@@ -14,7 +15,8 @@ const routes = {
   logout: '/logout', //登出
   collection: '/collection', //创建收藏;
   collections: '/collections', // 根据会员ID查询收藏
-}
+};
+
 
 /**
  *  删除收藏
@@ -32,12 +34,22 @@ export async function delCollection({ ID }) {
  * @param {*} ID 
  */
 export async function queryCollection({ pageIndex }) {
+  var Token = '';
+  if (localStorage.getItem('userInfo')) {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    Token = userInfo.Token;
+    console.log(Token);
+  }
   return await $R.get({
-    urlL: routes.collections,
+    url: routes.collections,
     params: {
       PageNum: pageIndex,
       PageSize: 20,
-    }
+    },
+    headers: {
+      Authorization: Token,
+    },
+    
   });
 }
 
@@ -128,7 +140,6 @@ export async function searchChapters(NovelID) {
   return await $R.get(routes.chapters, {
     params: {
       NovelID
-,
     }
   });
 }
@@ -140,7 +151,7 @@ export async function searchChapters(NovelID) {
  * @param {*} ID 
  */
 export async function novelsets(typeID) {
-  console.log('发送了')
+  console.log('发送了');
   return await $R.get(routes.novelsets, {
     params: {
       PageNum: 1,
@@ -156,8 +167,8 @@ export async function novelsets(typeID) {
  * @param {*} data 
  * @param {*} ID 
  */
-export async function newupdatenovels(ID) {
-  console.log('发送了')
+export async function newupdatenovels() {
+  console.log('发送了');
   return await $R.get(routes.newupdatenovels, {
     params: {
       PageNum: 2, 
@@ -207,8 +218,6 @@ export async function categoryList(type, pageNumber) {
  * 全本小说列表查询;
  */
 export async function getwholeNovelList({ pageIndex}) {
-  console.log('全本小说页')
-  console.log(pageIndex)
   return await $R.get(routes.novels, {
     params: {
       PageNum: pageIndex,

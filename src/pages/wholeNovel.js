@@ -18,21 +18,21 @@ class WholeNovel extends Component {
   pageIndexAdd = (total) => {
     this.setState((state, props)=>({
       pageIndex: state.pageIndex < Math.ceil(total / 20) ? state.pageIndex + 1 : Math.ceil(total / 20)
-    }))
+    }));
   }
 
   //上一页
   pageIndexMinus = () => {
     this.setState((state, props) => ({
       pageIndex: state.pageIndex > 1 ? state.pageIndex - 1 : 1
-    }))
+    }));
   }
 
   //尾页
   pageIndexEnd = (total) => {
     this.setState({
       pageIndex: Math.ceil(total / 20)
-    })
+    });
   }
 
   componentDidMount() {
@@ -44,20 +44,24 @@ class WholeNovel extends Component {
   query = async ({ pageIndex }) => {
     this.setState({
       loading: true,
-    })
-    await this.props.setWholeNovelListAsync({
-      pageIndex
     });
-    this.setState({
-      loading: false,
-    })
+    const {API} = this.props;
+    if ((API || {}).getwholeNovelList) {
+      await this.props.setWholeNovelListAsync({
+        pageIndex,
+        getwholeNovelList: API.getwholeNovelList
+      });
+      this.setState({
+        loading: false,
+      });
+    }
   }
   render() {
     let { pageIndex, loading  } = this.state;
     const { wholeNovelList = [], wholeNovelTotal = 0, } = this.props;
     return (
       <div>
-        <Header />
+        <Header {...this.props}/>
         <ItemSort />
         {
           loading ? <img className='loading' src={require('../assets/loading.svg')} /> : (
@@ -68,25 +72,24 @@ class WholeNovel extends Component {
                 pageIndex={pageIndex}
                 pageIndexAdd={this.pageIndexAdd}
                 pageIndexMinus={this.pageIndexMinus}
-                pageIndexEnd={this.pageIndexEnd}
-              />
+                pageIndexEnd={this.pageIndexEnd}/>
             </div>
           )
         }
 
       </div>
-    )
+    );
   }
 
 }
 
 //在reducer 中创建counter 的reducer
 const mapStateToProps = (state) => {
-  const { novelList = {} } = state
+  const { novelList = {} } = state;
   return {
     wholeNovelList: novelList.wholeNovelList, //全本小说分类列表
     wholeNovelTotal: novelList.wholeNovelTotal,
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, { setWholeNovelListAsync })(WholeNovel);

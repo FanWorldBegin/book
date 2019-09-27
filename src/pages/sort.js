@@ -28,40 +28,44 @@ class Sort extends Component {
   pageIndexAdd = (total) => {
     this.setState((state, props) => ({
       pageIndex: state.pageIndex < Math.ceil(total / pageSize) ? state.pageIndex + 1 : Math.ceil(total / pageSize)
-    }))
+    }));
   }
 
   //上一页
   pageIndexMinus = () => {
     this.setState((state, props) => ({
       pageIndex: state.pageIndex > 1 ? state.pageIndex - 1 : 1
-    }))
+    }));
   }
 
   //尾页
   pageIndexEnd = (total) => {
     this.setState({
       pageIndex: Math.ceil(total / 20)
-    })
+    });
   }
   query = async ({ queryType, pageIndex}) => {
     this.setState({
       loading: true,
-    })
-    await this.props.setCategoryListAsync({
-      queryType,
-      pageIndex
     });
-    this.setState({
-      loading: false,
-    })
+    const {API} = this.props;
+    if (API.categoryList) {
+      await this.props.setCategoryListAsync({
+        queryType,
+        pageIndex,
+        categoryList: API.categoryList
+      });
+      this.setState({
+        loading: false,
+      });
+    }
   }
   render() {
     let { active, queryType, loading, pageIndex } = this.state;
-    const { categoryList = [], categoryTotal = 0, catePagingIndex, } = this.props;
+    const { categoryList = [], categoryTotal = 0, } = this.props;
     return (
       <div>
-        <Header />
+        <Header {...this.props}/>
         <ItemSort />
         {
           loading ? <img className='loading' src={require('../assets/loading.svg')} /> : (
@@ -79,10 +83,10 @@ class Sort extends Component {
                           this.setState({
                             active: index,
                             queryType: item.categories
-                          })
+                          });
                         }
                       }>{item.name}</div>
-                    )
+                    );
                   })
                 }
               </div>
@@ -94,8 +98,7 @@ class Sort extends Component {
                   pageIndex={pageIndex}
                   pageIndexAdd={this.pageIndexAdd}
                   pageIndexMinus={this.pageIndexMinus}
-                  pageIndexEnd={this.pageIndexEnd}
-                />
+                  pageIndexEnd={this.pageIndexEnd}/>
 
               </div>
 
@@ -103,19 +106,19 @@ class Sort extends Component {
           )
         }
       </div>
-    )
+    );
   }
 
 }
 
 //在reducer 中创建counter 的reducer
 const mapStateToProps = (state) => {
-  console.log(state)
-  const { novelSort = {} } = state
+  console.log(state);
+  const { novelSort = {} } = state;
   return {
     categoryList: novelSort.categoryList, //小说分类列表
     categoryTotal: novelSort.categoryTotal, //小说分类列表长度
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, { setCategoryListAsync})(Sort);

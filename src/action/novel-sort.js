@@ -1,25 +1,24 @@
 
 import {
- SET_CATEGORY_LIST, CATE_LIST_PAGING_ADD, CATE_LIST_PAGING_MINUS
+  SET_CATEGORY_LIST,
 } from './constants';
-import { categoryList } from '../config/api/index';
 //查询小说分类
 const setCategoryList = (res) => {
   return {
     type: SET_CATEGORY_LIST,
     filter: res
-  }
-}
+  };
+};
 
 
 
-export const setCategoryListAsync = ({ queryType, pageIndex}) => {
+export const setCategoryListAsync = ({ queryType, pageIndex, categoryList}) => {
   return async (dispatch) => {
     var res = await categoryList(queryType, pageIndex);
-    dispatch(setCategoryList(res))
-  }
+    dispatch(setCategoryList(res));
+  };
 
-}
+};
 
 // //小说分类分页加
 // export const cateListPagingAdd = (res) => {

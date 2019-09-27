@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HeaderBack  from '../component/header-back';
 import { connect } from 'react-redux';
 import { setChapterDetailAsync, getNewChapterAsync } from '../action';
-import { css } from "@emotion/core"
+import { css } from "@emotion/core";
 import NovelBar  from '../component/novel-bar';
 import { navigate } from "gatsby";
 
@@ -10,15 +10,15 @@ const fontSizeObj = {
   big: {fontSize: '20px'},
   mid: { fontSize: '16px' },
   sml: { fontSize: '12px' },
-}
+};
 const backColor = {
   yellow: {backgroundColor: 'rgba(251, 246, 235, 1.0)'}, 
   green: { backgroundColor: 'rgba(220, 235, 210, 1.0)'}
-}
+};
 const closeLightStyle = {
   color: 'rgba(204, 204, 204, 1.0)',
   backgroundColor: 'rgba(50, 55, 59, 1.0)',
-}
+};
 
 const navigateContainer = {
   yellow: {
@@ -29,7 +29,7 @@ const navigateContainer = {
     color: 'rgba(204, 204, 204, 1.0)',
     backgroundColor: 'rgba(106, 110, 128, 0.1)',
   }
-}
+};
 class NovelPage extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +44,7 @@ class NovelPage extends Component {
 
   componentDidMount() {
     const { location={} } = this.props;
-    const { state = {} } = location
+    const { state = {} } = location;
     this.query(state.ID);
 
   }
@@ -54,55 +54,65 @@ class NovelPage extends Component {
       loading: true,
     });
     const { location = {} } = this.props;
-    const { state = {} } = location
-    await this.props.setChapterDetailAsync(state.ID);
-    this.setState({
-      loading: false,
-    });
+    const { state = {} } = location;
+    const { API = {} } = this.props;
+    if (API.searchChapterDetail) {
+      await this.props.setChapterDetailAsync({
+        ID: state.ID,
+        searchChapterDetail: API.searchChapterDetail,
+      });
+      this.setState({
+        loading: false,
+      });
+    }
   }
   setFont = (fontSize) => {
-     this.setState({
-       fontSize
-     })
-   }
+    this.setState({
+      fontSize
+    });
+  }
   setBackColor = (backColor) => {
-    console.log(backColor)
+    console.log(backColor);
     this.setState({
       backColorCon: backColor,
-    })
+    });
   }
 
   ifCloseLight = (closeLight) => {
-    console.log(closeLight)
+    console.log(closeLight);
     this.setState({
       closeLight
-    })
+    });
   }
 
   queryNewChapter = async (Flag) => {
     this.setState({
       loading: true,
     });
-    await this.props.getNewChapterAsync({
-      ID:this.props.location.state.ID,
-      Flag
-    })
-    this.setState({
-      loading: false,
-    });
-    console.log(this.props)
-    const { chapterDetail={} } = this.props;
-    const { ID } = chapterDetail;
-    console.log(ID)
-    if(ID !==  0) {
-      navigate(
-        `/novelPage?ID=${ID}`,
-        {
-          state: {
-            ID: ID,
+    const {API} = this.props;
+    if (API.searchChapterNext) {
+      await this.props.getNewChapterAsync({
+        ID: this.props.location.state.ID,
+        Flag,
+        searchChapterNext: API.searchChapterNext
+      });
+      console.log(this.props);
+      const { chapterDetail = {} } = this.props;
+      const { ID } = chapterDetail;
+      console.log(ID);
+      if (ID !== 0) {
+        navigate(
+          `/novelPage/`,
+          {
+            state: {
+              ID: ID,
+            }
           }
-        }
-      )
+        );
+      }
+      this.setState({
+        loading: false,
+      });
     }
 
   }
@@ -110,11 +120,10 @@ class NovelPage extends Component {
   render() {
     var { loading, fontSize, backColorCon, closeLight } = this.state;
     const { chapterDetail = {}, location } = this.props;
-    console.log(this.props)
     var content = (chapterDetail.Content || '').replace(/↵/g, `\n`);
     return (
       <div className='novelPage-container'>
-        <HeaderBack title={chapterDetail.ChapterName} query={this.query} {...this.props}/>
+        <HeaderBack title={chapterDetail.ChapterName} query={this.query} {...this.props} />
         {
           loading ? <img className='loading' src={require('../assets/loading.svg')} /> : (
             <React.Fragment>
@@ -129,13 +138,13 @@ class NovelPage extends Component {
                   <div onClick={
                     e => {
                       navigate(
-                        `/novel`,
+                        `/novel/`,
                         {
                           state: {
                             ID: chapterDetail.NovelID,
                           }
                         }
-                      )
+                      );
                     }
                   }>回目录</div>
                   <div onClick={
@@ -148,7 +157,7 @@ class NovelPage extends Component {
                       navigate(
                         `/bookrack`,
               
-                      )
+                      );
                     }
                   }>进书架</div>
                 </div>
@@ -174,7 +183,7 @@ class NovelPage extends Component {
                             ID: chapterDetail.NovelID,
                           }
                         }
-                      )
+                      );
                     }
                   }>回目录</div>
                   <div onClick={
@@ -193,18 +202,18 @@ class NovelPage extends Component {
           )
         }
       </div>
-    )
+    );
   }
 
 }
 
 //在reducer 中创建counter 的reducer
 const mapStateToProps = (state) => {
-  const { novelItem={} } = state
+  const { novelItem={} } = state;
   return {
     chapterDetail: novelItem.chapterDetail,
-  }
-}
+  };
+};
 
 
 export default connect(mapStateToProps, { setChapterDetailAsync, getNewChapterAsync })(NovelPage);

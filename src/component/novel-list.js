@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "gatsby"
+import { Link } from "gatsby";
 
 const pageSize = 1;
 export class NovelList extends Component {
@@ -21,27 +21,27 @@ export class NovelList extends Component {
               <Link to={`/novel`} state={{ ID: item.ID }} key={item.ID} >
                 <div key={item.ID} className='list-item'>
                   <span className='name'>{item.NovelName}</span> /
-                    <span className='author'>{item.Author}</span>
+                  <span className='author'>{item.Author}</span>
                 </div>
               </Link>
 
-            )
+            );
           })
         }
         <div className='paging-container'>
           <div className='paging-item' onClick={
             async e => {
               if (pageIndex > 1) {
-                pageIndexMinus()
+                pageIndexMinus();
                 query({ queryType, pageIndex });
               }
             }
           }>上页</div>
           <div className='paging-item paging-item2' onClick={
-             async e =>{
-               if (pageIndex < Math.ceil(total / pageSize)){
-                 pageIndexAdd(total)
-                 query({ queryType, pageIndex });
+            async e =>{
+              if (pageIndex < Math.ceil(total / pageSize)){
+                pageIndexAdd(total);
+                query({ queryType, pageIndex });
               }
 
             }
@@ -50,7 +50,7 @@ export class NovelList extends Component {
           <div className='paging-item paging-item2' onClick={
             async e=>{
               if (pageIndex != Math.ceil(total / pageSize)) {
-                pageIndexEnd(total)
+                pageIndexEnd(total);
                 query({ queryType, pageIndex });
               }
             }
@@ -61,7 +61,7 @@ export class NovelList extends Component {
           <div className='paging-item paging-item2'>当前 第{pageIndex}页</div>
         </div>
       </div>
-    )
+    );
   }
 
 }

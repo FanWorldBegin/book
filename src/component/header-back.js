@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import { navigate } from "gatsby";
-import { setUserInfo } from '../action/index'
+import { setUserInfo } from '../action/index';
 import { connect } from 'react-redux';
 class HeaderBack extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
     //验证是否登陆
-    if (localStorage.getItem('userInfo')) {
-      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-      if (userInfo.ID) {
-        this.props.setUserInfo(userInfo)
-      }
-    }
+
   }
 
   render() {
@@ -34,11 +29,11 @@ class HeaderBack extends Component {
 
         <span className='back-btn left' onClick={
           e => {
-            navigate("/")
+            navigate("/");
           }
         }>首页</span>
       </div>
-    )
+    );
   }
 
 }
@@ -48,7 +43,7 @@ const mapStateToProps = (state) => {
   var { users } = state;
   return {
     userInfo: users.userInfo,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, { setUserInfo })(HeaderBack)
+export default connect(mapStateToProps, { setUserInfo })(HeaderBack);
