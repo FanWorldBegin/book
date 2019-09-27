@@ -41,7 +41,7 @@ class HomePage extends Component {
         loading: false,
       });
     }
-  }
+  };
 
   render() {
     var { coverRecommend = [] } = this.props.novelList;
@@ -63,7 +63,8 @@ class HomePage extends Component {
                     <div className="list-title">{item.name}</div>
                     <NovellistItem
                       detail={item.detail}
-                      novelList={(coverRecommend || {})[item.index]}/>
+                      novelList={(coverRecommend || {})[item.index]}
+                    />
                   </div>
                 );
               })}

@@ -1,9 +1,9 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react";
+import { Link } from "gatsby";
 
 export class ItemSort extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {}
@@ -37,6 +37,6 @@ export class ItemSort extends Component {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 }

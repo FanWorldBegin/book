@@ -1,15 +1,15 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react";
+import { Link } from "gatsby";
 export default class NovellistItem extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {}
 
   withDetail = novelList => {
     return (novelList || []).map(item => {
-      const { Novel = {} } = item
+      const { Novel = {} } = item;
       return (
         <Link
           to={`/novel/`}
@@ -26,13 +26,13 @@ export default class NovellistItem extends Component {
             <div className="Description">{Novel.Description}</div>
           </div>
         </Link>
-      )
-    })
-  }
+      );
+    });
+  };
 
   noDetail = novelList => {
     return (novelList || []).map((item, index) => {
-      const { Novel = {} } = item
+      const { Novel = {} } = item;
       return index == 0 ? (
         <div key={`${item.ID}${item.Sort}`}>
           <Link
@@ -57,16 +57,16 @@ export default class NovellistItem extends Component {
             <span className="author">{Novel.Author}</span>
           </Link>
         </div>
-      )
-    })
-  }
+      );
+    });
+  };
 
   render() {
-    const { novelList, detail } = this.props
+    const { novelList, detail } = this.props;
     return (
       <div className="novellist-item">
         {detail ? this.withDetail(novelList) : this.noDetail(novelList)}
       </div>
-    )
+    );
   }
 }

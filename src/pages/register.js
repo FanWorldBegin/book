@@ -1,49 +1,49 @@
-import React, { Component } from "react"
-import HeaderBack from "../component/header-back"
-import { navigate } from "gatsby"
-import { connect } from "react-redux"
-import { setUserRegisterAsync } from "../action/user"
+import React, { Component } from "react";
+import HeaderBack from "../component/header-back";
+import { navigate } from "gatsby";
+import { connect } from "react-redux";
+import { setUserRegisterAsync } from "../action/user";
 
 class RegisterPage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       resgisterInfo: "",
       LoginPassword: "",
       Account: "",
       email: "",
-    }
+    };
   }
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
   }
   handleChange = event => {
-    var type = event.target.name
-    console.log(type)
-    console.log(event.target.value)
+    var type = event.target.name;
+    console.log(type);
+    console.log(event.target.value);
     this.setState({
       [type]: event.target.value,
-    })
-  }
+    });
+  };
   handleSubmit = async event => {
-    event.preventDefault()
-    var userInfo = this.state
-    const { API } = this.props
+    event.preventDefault();
+    var userInfo = this.state;
+    const { API } = this.props;
     if (API.userRegister) {
       await this.props.setUserRegisterAsync({
         userInfo,
         userRegister: API.userRegister,
-      })
-      var { registerState } = this.props
+      });
+      var { registerState } = this.props;
       if (registerState.Message == "success") {
         this.setState({
           resgisterInfo: (
             <div className="info info-success">注册成功，即将跳转</div>
           ),
-        })
+        });
         setTimeout(e => {
-          navigate("/login")
-        }, 1000)
+          navigate("/login");
+        }, 1000);
       } else {
         this.setState({
           Account: "",
@@ -52,12 +52,12 @@ class RegisterPage extends Component {
           resgisterInfo: (
             <div className="info info-fail ">注册失败，请重新输入。</div>
           ),
-        })
+        });
       }
     }
-  }
+  };
   render() {
-    var { resgisterInfo } = this.state
+    var { resgisterInfo } = this.state;
     return (
       <div className="register-container">
         <HeaderBack title="注册" {...this.props} />
@@ -97,7 +97,7 @@ class RegisterPage extends Component {
             <button
               type="button"
               onClick={e => {
-                navigate("/login")
+                navigate("/login");
               }}
             >
               已有账号，点击登陆
@@ -107,18 +107,18 @@ class RegisterPage extends Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 //在reducer 中创建counter 的reducer
 const mapStateToProps = state => {
-  var { users = {} } = state
+  var { users = {} } = state;
   return {
     registerState: users.registerState,
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
   { setUserRegisterAsync }
-)(RegisterPage)
+)(RegisterPage);

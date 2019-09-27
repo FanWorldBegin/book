@@ -1,8 +1,8 @@
-import React, { useEffect } from "react"
-import App from "./app"
-import "../styles/index.scss"
+import React, { useEffect } from "react";
+import App from "./app";
+import "../styles/index.scss";
 
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet";
 
 export default props => {
   return (
@@ -16,5 +16,5 @@ export default props => {
       </Helmet>
       <App {...props} />
     </div>
-  )
-}
+  );
+};

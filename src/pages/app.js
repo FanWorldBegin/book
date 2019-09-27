@@ -1,9 +1,9 @@
-import React, { Component } from "react"
-import { createStore, applyMiddleware } from "redux"
-import rootReducer from "../reducer/index"
-import HomePage from "./home"
-import createSagaMiddleware from "redux-saga"
-import { navigate } from "gatsby"
+import React, { Component } from "react";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer from "../reducer/index";
+import HomePage from "./home";
+import createSagaMiddleware from "redux-saga";
+import { navigate } from "gatsby";
 
 // const store = createStore(
 //   rootReducer,
@@ -15,11 +15,11 @@ import { navigate } from "gatsby"
 // sagaMiddleware.run(rootSaga);
 export default class MainEntry extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
-    navigate("/home/")
+    navigate("/home/");
   }
 
   render() {
@@ -27,6 +27,6 @@ export default class MainEntry extends Component {
       <div className="main-container">
         <HomePage />
       </div>
-    )
+    );
   }
 }

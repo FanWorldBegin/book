@@ -49,7 +49,7 @@ class Booktrack extends Component {
         loading: false,
       });
     }
-  }
+  };
 
   //下一页
   pageIndexAdd = total => {
@@ -59,21 +59,21 @@ class Booktrack extends Component {
           ? state.pageIndex + 1
           : Math.ceil(total / 20),
     }));
-  }
+  };
 
   //上一页
   pageIndexMinus = () => {
     this.setState((state, props) => ({
       pageIndex: state.pageIndex > 1 ? state.pageIndex - 1 : 1,
     }));
-  }
+  };
 
   //尾页
   pageIndexEnd = total => {
     this.setState({
       pageIndex: Math.ceil(total / 20),
     });
-  }
+  };
   render() {
     let { loading, pageIndex } = this.state;
     const { novelCollectionList, novelCollectionTotal } = this.props;
@@ -81,7 +81,7 @@ class Booktrack extends Component {
       <div className="booktrack-container">
         <HeaderBack title="我的书架" {...this.props} />
         <ItemSort />
-        <div className='main-title'>我的书架-会员中心</div>
+        <div className="main-title">我的书架-会员中心</div>
         {loading ? (
           <img className="loading" src={require("../assets/loading.svg")} />
         ) : (
@@ -93,7 +93,8 @@ class Booktrack extends Component {
               pageIndex={pageIndex}
               pageIndexAdd={this.pageIndexAdd}
               pageIndexMinus={this.pageIndexMinus}
-              pageIndexEnd={this.pageIndexEnd}/>
+              pageIndexEnd={this.pageIndexEnd}
+            />
           </div>
         )}
       </div>

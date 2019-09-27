@@ -1,26 +1,26 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react";
+import { Link } from "gatsby";
 
 export class ChapterList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       pageIndex: 1,
-    }
+    };
   }
 
   componentDidMount() {}
 
   // 分割数组
   sliceChapter(arr, size) {
-    let chapterList = {}
-    var index = 0
+    let chapterList = {};
+    var index = 0;
     for (var i = 0; i < arr.length; i = i + size) {
-      chapterList[index] = arr.slice(i, i + size)
-      chapterList.length = index
-      index += 1
+      chapterList[index] = arr.slice(i, i + size);
+      chapterList.length = index;
+      index += 1;
     }
-    return chapterList
+    return chapterList;
   }
   render() {
     const {
@@ -30,10 +30,10 @@ export class ChapterList extends Component {
       queryType,
       loading,
       backToCatalog,
-    } = this.props
-    let { pageIndex } = this.state
-    let silceList = this.sliceChapter(List, 20)
-    let nowList = silceList[pageIndex - 1]
+    } = this.props;
+    let { pageIndex } = this.state;
+    let silceList = this.sliceChapter(List, 20);
+    let nowList = silceList[pageIndex - 1];
     return (
       <div className="list-items">
         {(nowList || []).map(item => {
@@ -49,7 +49,7 @@ export class ChapterList extends Component {
                 <span className="name">{item.ChapterName}</span>{" "}
               </Link>
             </div>
-          )
+          );
         })}
         <div className="paging-container">
           <div
@@ -61,11 +61,11 @@ export class ChapterList extends Component {
                 },
                 () => {
                   if (pageIndex != 1) {
-                    let { pageIndex } = this.state
-                    query({ queryType, pageIndex })
+                    let { pageIndex } = this.state;
+                    query({ queryType, pageIndex });
                   }
                 }
-              )
+              );
             }}
           >
             上页
@@ -84,7 +84,7 @@ export class ChapterList extends Component {
                   // let { pageIndex } = this.state;
                   // query({ queryType, pageIndex })
                 }
-              )
+              );
             }}
           >
             下页
@@ -97,9 +97,9 @@ export class ChapterList extends Component {
                   pageIndex: Math.ceil(total / 20),
                 },
                 () => {
-                  query({ queryType, pageIndex: Math.ceil(total / 20) })
+                  query({ queryType, pageIndex: Math.ceil(total / 20) });
                 }
-              )
+              );
             }}
           >
             尾页
@@ -110,6 +110,6 @@ export class ChapterList extends Component {
           <div className="paging-item paging-item2">当前 第{pageIndex}页</div>
         </div>
       </div>
-    )
+    );
   }
 }

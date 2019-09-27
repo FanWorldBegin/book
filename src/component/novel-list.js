@@ -1,10 +1,10 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from "react";
+import { Link } from "gatsby";
 
-const pageSize = 1
+const pageSize = 1;
 export class NovelList extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {}
@@ -19,7 +19,7 @@ export class NovelList extends Component {
       pageIndexAdd,
       pageIndexMinus,
       pageIndexEnd,
-    } = this.props
+    } = this.props;
     return (
       <div className="list-items">
         {rankList.map(item => {
@@ -30,15 +30,15 @@ export class NovelList extends Component {
                 <span className="author">{item.Author}</span>
               </div>
             </Link>
-          )
+          );
         })}
         <div className="paging-container">
           <div
             className="paging-item"
             onClick={async e => {
               if (pageIndex > 1) {
-                pageIndexMinus()
-                query({ queryType, pageIndex })
+                pageIndexMinus();
+                query({ queryType, pageIndex });
               }
             }}
           >
@@ -48,8 +48,8 @@ export class NovelList extends Component {
             className="paging-item paging-item2"
             onClick={async e => {
               if (pageIndex < Math.ceil(total / pageSize)) {
-                pageIndexAdd(total)
-                query({ queryType, pageIndex })
+                pageIndexAdd(total);
+                query({ queryType, pageIndex });
               }
             }}
           >
@@ -60,8 +60,8 @@ export class NovelList extends Component {
             className="paging-item paging-item2"
             onClick={async e => {
               if (pageIndex != Math.ceil(total / pageSize)) {
-                pageIndexEnd(total)
-                query({ queryType, pageIndex })
+                pageIndexEnd(total);
+                query({ queryType, pageIndex });
               }
             }}
           >
@@ -73,6 +73,6 @@ export class NovelList extends Component {
           <div className="paging-item paging-item2">当前 第{pageIndex}页</div>
         </div>
       </div>
-    )
+    );
   }
 }

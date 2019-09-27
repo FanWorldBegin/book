@@ -26,23 +26,26 @@ export class NovelListCollection extends Component {
           const { Novel = {} } = item;
           console.log(Novel);
           return (
-            <div key={`${item.ID}${item.Sort}`} className='item-out-container'>
+            <div key={`${item.ID}${item.Sort}`} className="item-out-container">
               <Link
                 to={`/novel`}
                 state={{ ID: Novel.ID }}
-                className="item-container">
+                className="item-container"
+              >
                 <div className="item-img">
                   <img src={Novel.PicUrl} />
                 </div>
                 <div className="item-content">
                   <div className="title">{Novel.NovelName}</div>
                   <div className="author">作者：{Novel.Author}</div>
-                  <div className="author">更新到：{Novel.NewUpdateChapter ? Novel.NewUpdateChapter : '暂无'}</div>
+                  <div className="author">
+                    更新到：
+                    {Novel.NewUpdateChapter ? Novel.NewUpdateChapter : "暂无"}
+                  </div>
                 </div>
-                <div>
-                </div>
+                <div></div>
               </Link>
-              <div className='delete-button'>删除</div>
+              <div className="delete-button">删除</div>
             </div>
           );
         })}
@@ -54,7 +57,8 @@ export class NovelListCollection extends Component {
                 pageIndexMinus();
                 query({ queryType, pageIndex });
               }
-            }}>
+            }}
+          >
             上页
           </div>
           <div
@@ -64,7 +68,8 @@ export class NovelListCollection extends Component {
                 pageIndexAdd(total);
                 query({ queryType, pageIndex });
               }
-            }}>
+            }}
+          >
             下页
           </div>
 
@@ -75,7 +80,8 @@ export class NovelListCollection extends Component {
                 pageIndexEnd(total);
                 query({ queryType, pageIndex });
               }
-            }}>
+            }}
+          >
             尾页
           </div>
         </div>
