@@ -1,8 +1,4 @@
-
-
-
 exports.onCreatePage = ({ page, actions }) => {
-
   const { createPage } = actions
   // Make the front page match everything client side.
   // Normally your paths should be a bit more judicious.
@@ -14,7 +10,7 @@ exports.onCreatePage = ({ page, actions }) => {
 }
 
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
-  console.log('loader')
+  console.log("loader")
   console.log(loaders)
   if (stage === "build-html") {
     actions.setWebpackConfig({

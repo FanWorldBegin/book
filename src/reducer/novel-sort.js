@@ -1,6 +1,8 @@
 import {
-  SET_CATEGORY_LIST, CATE_LIST_PAGING_ADD, CATE_LIST_PAGING_MINUS
-} from '../action/constants';
+  SET_CATEGORY_LIST,
+  CATE_LIST_PAGING_ADD,
+  CATE_LIST_PAGING_MINUS,
+} from "../action/constants"
 
 // if (localStorage.getItem('store')) {
 //   initialState = JSON.parse(localStorage.getItem('store'));
@@ -14,7 +16,6 @@ const intialState = {
 }
 
 const novelSort = (state = intialState, action = {}) => {
-
   switch (action.type) {
     case SET_CATEGORY_LIST: {
       return Object.assign({}, state, {
@@ -25,20 +26,20 @@ const novelSort = (state = intialState, action = {}) => {
     case CATE_LIST_PAGING_ADD: {
       if (state.catePagingIndex < action.filter) {
         return Object.assign({}, state, {
-          catePagingIndex: state.catePagingIndex + 1
+          catePagingIndex: state.catePagingIndex + 1,
         })
       }
     }
     case CATE_LIST_PAGING_MINUS: {
       if (state.catePagingIndex > 1) {
         return Object.assign({}, state, {
-          catePagingIndex: state.catePagingIndex - 1
+          catePagingIndex: state.catePagingIndex - 1,
         })
       }
     }
     default:
-      return state;
+      return state
   }
 }
 
-export default novelSort;
+export default novelSort

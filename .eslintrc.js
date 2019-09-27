@@ -3,14 +3,16 @@ module.exports = {
     __PATH_PREFIX__: true,
   },
   extends: `react-app`,
-  "rules": {
-    "indent": ["error", 2],
-    "semi": ["error", "always"],
+  rules: {
+    indent: ["error", 2],
+    semi: ["error", "always"],
     "no-unused-vars": [
       1,
       {
-        "vars": "all", "args": "after-used", "ignoreRestSiblings": false
-      }
+        vars: "all",
+        args: "after-used",
+        ignoreRestSiblings: false,
+      },
     ],
     "import/prefer-default-export": 0,
     "no-console": 0,
@@ -27,8 +29,8 @@ module.exports = {
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".js", ".jsx"]
-      }
-    ]
-  }
+        extensions: [".js", ".jsx"],
+      },
+    ],
+  },
 }

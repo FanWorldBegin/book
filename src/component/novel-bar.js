@@ -1,73 +1,85 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
 export default class NovelBar extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       loading: true,
-      active: 'mid',
+      active: "mid",
       protectEye: false,
       closeLight: false,
     }
   }
 
-  componentDidMount() {
-
-}
+  componentDidMount() {}
 
   render() {
-    var { active, protectEye, closeLight} = this.state;
-    const { setFont, setBackColor, ifCloseLight } = this.props;
+    var { active, protectEye, closeLight } = this.state
+    const { setFont, setBackColor, ifCloseLight } = this.props
     return (
-      <div className='novelbar-container'>
-        <div className='font-container'>
-          <span className={active == 'big' ? 'active' : ''} onClick={
-            e => {
-              setFont('big')
+      <div className="novelbar-container">
+        <div className="font-container">
+          <span
+            className={active == "big" ? "active" : ""}
+            onClick={e => {
+              setFont("big")
               this.setState({
-                active: 'big'
+                active: "big",
               })
-            }
-          }>大</span>
-          <span className={active == 'mid' ? 'active' : ''} onClick={
-            e => {
-              setFont('mid')
+            }}
+          >
+            大
+          </span>
+          <span
+            className={active == "mid" ? "active" : ""}
+            onClick={e => {
+              setFont("mid")
               this.setState({
-                active: 'mid'
+                active: "mid",
               })
-            }
-          }>中</span>
-          <span className={active == 'sml' ? 'active' : ''} onClick={
-            e => {
-              setFont('sml')
+            }}
+          >
+            中
+          </span>
+          <span
+            className={active == "sml" ? "active" : ""}
+            onClick={e => {
+              setFont("sml")
               this.setState({
-                active: 'sml'
+                active: "sml",
               })
-            }
-          }>小</span>
+            }}
+          >
+            小
+          </span>
         </div>
-        <div className='back-container'>
-          <span className={protectEye == true ? 'active' : ''} onClick={
-            e => {
-              setBackColor(protectEye ? 'yellow': 'green')
+        <div className="back-container">
+          <span
+            className={protectEye == true ? "active" : ""}
+            onClick={e => {
+              setBackColor(protectEye ? "yellow" : "green")
               this.setState({
                 protectEye: !protectEye,
                 closeLight: false,
               })
-            }
-          }>护眼</span>
+            }}
+          >
+            护眼
+          </span>
 
-          <span className={closeLight == true ? 'active' : ''} onClick={
-            e => {
+          <span
+            className={closeLight == true ? "active" : ""}
+            onClick={e => {
               ifCloseLight(closeLight ? false : true)
               this.setState({
                 closeLight: !closeLight,
                 protectEye: false,
               })
-            }
-          }>关灯</span>
+            }}
+          >
+            关灯
+          </span>
         </div>
-        
       </div>
     )
   }

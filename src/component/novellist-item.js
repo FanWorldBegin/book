@@ -1,90 +1,72 @@
-import React, { Component } from 'react';
-import { Link } from "gatsby";
+import React, { Component } from "react"
+import { Link } from "gatsby"
 export default class NovellistItem extends Component {
   constructor(props) {
-    super(props);
-
+    super(props)
   }
 
-  componentDidMount() {
+  componentDidMount() {}
 
+  withDetail = novelList => {
+    return (novelList || []).map(item => {
+      const { Novel = {} } = item
+      return (
+        <Link
+          to={`/novel/`}
+          state={{ ID: Novel.ID }}
+          className="item-container"
+          key={`${item.ID}${item.Sort}`}
+        >
+          <div className="item-img">
+            <img src={Novel.PicUrl} />
+          </div>
+          <div className="item-content">
+            <div className="title">{Novel.NovelName}</div>
+            <div className="author">作者：{Novel.Author}</div>
+            <div className="Description">{Novel.Description}</div>
+          </div>
+        </Link>
+      )
+    })
   }
 
-  withDetail = (novelList) => {
-    return (
-      (novelList || []).map(item => {
-        const { Novel = {} } = item;
-        return (
-          <Link to={`/novel/`} state={{ ID: Novel.ID }} className='item-container' key={`${item.ID}${item.Sort}`}>
-            <div className='item-img'>
+  noDetail = novelList => {
+    return (novelList || []).map((item, index) => {
+      const { Novel = {} } = item
+      return index == 0 ? (
+        <div key={`${item.ID}${item.Sort}`}>
+          <Link
+            to={`/novel`}
+            state={{ ID: Novel.ID }}
+            className="item-container"
+          >
+            <div className="item-img">
               <img src={Novel.PicUrl} />
             </div>
-            <div className='item-content'>
-              <div className='title'>
-                {Novel.NovelName}
-              </div>
-              <div className='author'>
-                作者：{Novel.Author}
-              </div>
-              <div className='Description'>
-                {Novel.Description}
-              </div>
+            <div className="item-content">
+              <div className="title">{Novel.NovelName}</div>
+              <div className="author">作者：{Novel.Author}</div>
+              <div className="Description">{Novel.Description}</div>
             </div>
           </Link>
-        );
-      })
-    );
-  }
-
-
-  noDetail = (novelList) => {
-    return (
-      (novelList || []).map((item, index) => {
-        const { Novel = {} } = item;
-        return (
-          index == 0 ? 
-            <div key={`${item.ID}${item.Sort}`}>
-              <Link to={`/novel`} state={{ ID: Novel.ID }} className='item-container'>
-                <div className='item-img'>
-                  <img src={Novel.PicUrl} />
-                </div>
-                <div className='item-content'>
-                  <div className='title'>
-                    {Novel.NovelName}
-                  </div>
-                  <div className='author'>
-                    作者：{Novel.Author}
-                  </div>
-                  <div className='Description'>
-                    {Novel.Description}
-                  </div>
-                </div>
-              </Link>
-            </div> :
-            <div className='item-simple-container' key={`${item.ID}${item.Sort}`}>
-              <Link to={`/novel`} state={{ ID: Novel.ID }}>
-                <span className='title'>
-                  {Novel.NovelName}
-                </span> /
-  
-                <span className='author'>
-                  {Novel.Author}
-                </span>
-              </Link>
-            </div>
-        );
-      })
-    );
+        </div>
+      ) : (
+        <div className="item-simple-container" key={`${item.ID}${item.Sort}`}>
+          <Link to={`/novel`} state={{ ID: Novel.ID }}>
+            <span className="title">{Novel.NovelName}</span> /
+            <span className="author">{Novel.Author}</span>
+          </Link>
+        </div>
+      )
+    })
   }
 
   render() {
-    const { novelList, detail} = this.props;
+    const { novelList, detail } = this.props
     return (
-      <div className='novellist-item'>
-        {
-          detail ? this.withDetail(novelList) : this.noDetail(novelList)
-        }
+      <div className="novellist-item">
+        {detail ? this.withDetail(novelList) : this.noDetail(novelList)}
       </div>
-    );
+    )
   }
 }

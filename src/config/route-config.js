@@ -1,13 +1,10 @@
-import HomePage from '../pages/home';
+import HomePage from "../pages/home"
 const routeConfig = [
   {
-    path: '/home',
+    path: "/home",
     exact: true,
-    component: HomePage
+    component: HomePage,
   },
 ]
 
-
-export {
-  routeConfig
-}
+export { routeConfig }
