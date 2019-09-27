@@ -1,6 +1,8 @@
 // import "./src/styles/index.css"
 //在最外层包装
 import * as API from './src/config/api';
+import { $R } from './src/config/req-filter';
+
 const React = require('react');
 
 const Wrapper = ({ element, props }) => {
@@ -13,7 +15,8 @@ const Wrapper = ({ element, props }) => {
       {React.cloneElement(element, {
         ...props,
         API: { ...API},
-        isMobile
+        isMobile,
+        $R: $R,
       })}
     </div>
   );

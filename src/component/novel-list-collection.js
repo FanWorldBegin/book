@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "gatsby"
 
-const pageSize = 1;
+const pageSize = 20;
 export class NovelListCollection extends Component {
 
   constructor(props) {

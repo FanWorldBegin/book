@@ -13,9 +13,11 @@ class LoginPage extends Component {
       Username: '',
     };
   }
+
   componentDidMount() {
     console.log(this.props);
   }
+
   handleChange = (event) => {
     var type = event.target.name;
     this.setState({
@@ -24,7 +26,7 @@ class LoginPage extends Component {
   }
   handleSubmit = async (event) => {
     event.preventDefault();
-    const {API={}} = this.props;
+    const {API={}, $R } = this.props;
     await this.props.setUserInfoAsync({
       userInfo: {
         Password: this.state.Password,
@@ -32,11 +34,29 @@ class LoginPage extends Component {
       },
       userLogin: API.userLogin
     });
+    if($R) {
+      console.log('重新设置tken')
+      var Token = '';
+      if (!!localStorage.getItem('userInfo') && localStorage.getItem('userInfo') !== 'undefined') {
+        console.log(!!localStorage.getItem('userInfo'));
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        Token = userInfo.Token;
+        console.log(Token);
+      }
+      $R.setConfig({
+        baseUrl: 'http://52.196.57.193:3070/ncc', // 默认的请求地址
+        commonHeaders: {
+          Authorization: Token,
+        },// 所有的请求 headers
+      });
+    }
+
     var { userInfo } = this.props;
     if (userInfo.ID) {
       this.setState({
         loginInfo: <div className="info info-success">登录成功，即将跳转</div>
       });
+      
       setTimeout(e => {
         navigate(
           "/",
