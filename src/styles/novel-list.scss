@@ -1,7 +1,7 @@
 .list-items {
   padding-top: 10px;
   font-size: 16px;
-
+  width: 100%;
   .item-container {
     height: 120px;
     margin-bottom: 20px;
@@ -20,7 +20,7 @@
 
     .item-content {
       padding-left: 4px;
-      width: 80%;
+      width: 70%;
       position: relative;
 
       .title {
