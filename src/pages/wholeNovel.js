@@ -1,18 +1,18 @@
-import React, { Component } from "react"
-import Header from "../component/header"
-import { ItemSort } from "../component/item-sort"
-import { connect } from "react-redux"
-import { setWholeNovelListAsync } from "../action/index"
-import { NovelList } from "../component/novel-list"
+import React, { Component } from "react";
+import Header from "../component/header";
+import { ItemSort } from "../component/item-sort";
+import { connect } from "react-redux";
+import { setWholeNovelListAsync } from "../action/index";
+import { NovelList } from "../component/novel-list";
 
 class WholeNovel extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       active: 0,
       loading: true,
       pageIndex: 1,
-    }
+    };
   }
   //下一页
   pageIndexAdd = total => {
@@ -21,47 +21,47 @@ class WholeNovel extends Component {
         state.pageIndex < Math.ceil(total / 20)
           ? state.pageIndex + 1
           : Math.ceil(total / 20),
-    }))
-  }
+    }));
+  };
 
   //上一页
   pageIndexMinus = () => {
     this.setState((state, props) => ({
       pageIndex: state.pageIndex > 1 ? state.pageIndex - 1 : 1,
-    }))
-  }
+    }));
+  };
 
   //尾页
   pageIndexEnd = total => {
     this.setState({
       pageIndex: Math.ceil(total / 20),
-    })
-  }
+    });
+  };
 
   componentDidMount() {
     this.query({
       pageIndex: 1,
-    })
+    });
   }
 
   query = async ({ pageIndex }) => {
     this.setState({
       loading: true,
-    })
-    const { API } = this.props
+    });
+    const { API } = this.props;
     if ((API || {}).getwholeNovelList) {
       await this.props.setWholeNovelListAsync({
         pageIndex,
         getwholeNovelList: API.getwholeNovelList,
-      })
+      });
       this.setState({
         loading: false,
-      })
+      });
     }
-  }
+  };
   render() {
-    let { pageIndex, loading } = this.state
-    const { wholeNovelList = [], wholeNovelTotal = 0 } = this.props
+    let { pageIndex, loading } = this.state;
+    const { wholeNovelList = [], wholeNovelTotal = 0 } = this.props;
     return (
       <div>
         <Header {...this.props} />
@@ -82,20 +82,20 @@ class WholeNovel extends Component {
           </div>
         )}
       </div>
-    )
+    );
   }
 }
 
 //在reducer 中创建counter 的reducer
 const mapStateToProps = state => {
-  const { novelList = {} } = state
+  const { novelList = {} } = state;
   return {
     wholeNovelList: novelList.wholeNovelList, //全本小说分类列表
     wholeNovelTotal: novelList.wholeNovelTotal,
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
   { setWholeNovelListAsync }
-)(WholeNovel)
+)(WholeNovel);

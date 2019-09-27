@@ -76,7 +76,7 @@ class NovelItem extends Component {
     } else {
       navigate("/login/");
     }
-  }
+  };
 
   delCollection = async ID => {
     const { userInfo = {}, API = {} } = this.props;
@@ -85,7 +85,7 @@ class NovelItem extends Component {
     } else {
       navigate("/login/");
     }
-  }
+  };
   render() {
     const { novelDetail = {}, chapters, location = {} } = this.props;
     let { loading } = this.state;

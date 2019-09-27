@@ -1,11 +1,11 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
-import { connect } from "react-redux"
-import { setUserInfo, setUserLogoutAsync } from "../action/index"
+import React, { Component } from "react";
+import { Link } from "gatsby";
+import { connect } from "react-redux";
+import { setUserInfo, setUserLogoutAsync } from "../action/index";
 
 class Header extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
@@ -18,15 +18,15 @@ class Header extends Component {
     // }
   }
   logout = async () => {
-    const { API, setUserLogoutAsync } = this.props
-    console.log(API)
+    const { API, setUserLogoutAsync } = this.props;
+    console.log(API);
     if ((API || {}).userLogout) {
-      setUserLogoutAsync({ userLogout: API.userLogout })
+      setUserLogoutAsync({ userLogout: API.userLogout });
     }
-  }
+  };
   render() {
-    const { userInfo = {} } = this.props
-    console.log(this.props)
+    const { userInfo = {} } = this.props;
+    console.log(this.props);
     return (
       <div className="header-container">
         <div className="title">IReader</div>
@@ -38,7 +38,7 @@ class Header extends Component {
               </Link>
               <div
                 onClick={e => {
-                  this.logout()
+                  this.logout();
                 }}
                 className="log-btn"
               >
@@ -57,18 +57,18 @@ class Header extends Component {
           )}
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
-  var { users } = state
+  var { users } = state;
   return {
     userInfo: users.userInfo,
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
   { setUserInfo, setUserLogoutAsync }
-)(Header)
+)(Header);

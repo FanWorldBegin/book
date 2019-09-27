@@ -7,9 +7,9 @@ import NovelBar from "../component/novel-bar";
 import { navigate } from "gatsby";
 
 const fontSizeObj = {
-  big: { fontSize: "20px" },
-  mid: { fontSize: "16px" },
-  sml: { fontSize: "12px" },
+  big: { fontSize: "22px" },
+  mid: { fontSize: "18px" },
+  sml: { fontSize: "14px" },
 };
 const backColor = {
   yellow: { backgroundColor: "rgba(251, 246, 235, 1.0)" },
@@ -38,7 +38,7 @@ class NovelPage extends Component {
       fontSize: "mid",
       backColorCon: "yellow",
       closeLight: false, //是否关灯
-      fontSize: 'big',
+      fontSize: 'mid',
     };
   }
 
@@ -64,7 +64,7 @@ class NovelPage extends Component {
         loading: false,
       });
     }
-  }
+  };
   setFont = fontSize => {
     this.setState({
       fontSize,
@@ -110,7 +110,7 @@ class NovelPage extends Component {
         loading: false,
       });
     }
-  }
+  };
 
   render() {
     var { loading, fontSize, backColorCon, closeLight } = this.state;

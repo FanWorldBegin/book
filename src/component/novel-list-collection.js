@@ -26,7 +26,7 @@ export class NovelListCollection extends Component {
         {rankList.map(item => {
           const { Novel = {} } = item;
           return (
-            <div key={`${item.ID}${item.Sort}`} className='item-out-container'>
+            <div key={`${item.ID}${item.Sort}`} className="item-out-container">
               <Link
                 to={`/novel`}
                 state={{ ID: Novel.ID }}
@@ -37,10 +37,12 @@ export class NovelListCollection extends Component {
                 <div className="item-content">
                   <div className="title">{Novel.NovelName}</div>
                   <div className="author">作者：{Novel.Author}</div>
-                  <div className="author">更新到：{Novel.NewUpdateChapter ? Novel.NewUpdateChapter : '暂无'}</div>
+                  <div className="author">
+                    更新到：
+                    {Novel.NewUpdateChapter ? Novel.NewUpdateChapter : "暂无"}
+                  </div>
                 </div>
-                <div>
-                </div>
+                <div></div>
               </Link>
               <div className='delete-button' onClick={
                 async e=>{

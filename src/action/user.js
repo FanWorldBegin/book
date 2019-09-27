@@ -1,5 +1,9 @@
 // import { userRegister, userLogout } from '../config/api/index';
-import { USER_LOGIN_IN, USER_LOGIN_REGISTER, USER_LOGIN_OUT } from "./constants";
+import {
+  USER_LOGIN_IN,
+  USER_LOGIN_REGISTER,
+  USER_LOGIN_OUT,
+} from "./constants";
 
 //用户注册
 const setUserRegister = res => {
