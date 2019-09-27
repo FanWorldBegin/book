@@ -74,6 +74,16 @@ class Booktrack extends Component {
       pageIndex: Math.ceil(total / 20),
     });
   }
+
+  delCollection = async ID => {
+    const { userInfo = {}, API = {} } = this.props;
+    if (userInfo.Token) {
+      await API.delCollection({ ID });
+    } else {
+      navigate("/login/");
+    }
+  }
+
   render() {
     let { loading, pageIndex } = this.state;
     const { novelCollectionList, novelCollectionTotal } = this.props;
@@ -93,7 +103,8 @@ class Booktrack extends Component {
               pageIndex={pageIndex}
               pageIndexAdd={this.pageIndexAdd}
               pageIndexMinus={this.pageIndexMinus}
-              pageIndexEnd={this.pageIndexEnd}/>
+              pageIndexEnd={this.pageIndexEnd}
+              delCollection={this.delCollection}/>
           </div>
         )}
       </div>

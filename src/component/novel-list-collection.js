@@ -19,12 +19,12 @@ export class NovelListCollection extends Component {
       pageIndexAdd,
       pageIndexMinus,
       pageIndexEnd,
+      delCollection,
     } = this.props;
     return (
       <div className="list-items">
         {rankList.map(item => {
           const { Novel = {} } = item;
-          console.log(Novel);
           return (
             <div key={`${item.ID}${item.Sort}`} className='item-out-container'>
               <Link
@@ -42,7 +42,12 @@ export class NovelListCollection extends Component {
                 <div>
                 </div>
               </Link>
-              <div className='delete-button'>删除</div>
+              <div className='delete-button' onClick={
+                async e=>{
+                  await delCollection(item.ID);
+                  query();
+                }
+              }>删除</div>
             </div>
           );
         })}

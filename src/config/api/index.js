@@ -1,4 +1,4 @@
-import { $R } from "../req-filter"
+import { $R } from "../req-filter";
 
 const routes = {
   novelsets: "/novelsets", //首页展示
@@ -15,7 +15,7 @@ const routes = {
   logout: "/logout", //登出
   collection: "/collection", //创建收藏;
   collections: "/collections", // 根据会员ID查询收藏
-}
+};
 
 /**
  *  删除收藏
@@ -23,7 +23,7 @@ const routes = {
  * @param {*} ID
  */
 export async function delCollection({ ID }) {
-  return await $R.del(`${routes.collection}?ID=${ID}`, {})
+  return await $R.del(`${routes.collection}?ID=${ID}`, {});
 }
 
 /**
@@ -32,11 +32,11 @@ export async function delCollection({ ID }) {
  * @param {*} ID
  */
 export async function queryCollection({ pageIndex }) {
-  var Token = ""
+  var Token = "";
   if (localStorage.getItem("userInfo")) {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-    Token = userInfo.Token
-    console.log(Token)
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    Token = userInfo.Token;
+    console.log(Token);
   }
   return await $R.get({
     url: routes.collections,
@@ -47,7 +47,7 @@ export async function queryCollection({ pageIndex }) {
     headers: {
       Authorization: Token,
     },
-  })
+  });
 }
 
 /**
@@ -59,7 +59,7 @@ export async function addCollection({ NovelID, NovelName }) {
   return await $R.post(routes.collection, {
     NovelID,
     NovelName,
-  })
+  });
 }
 
 /**
@@ -68,7 +68,7 @@ export async function addCollection({ NovelID, NovelName }) {
  * @param {*} ID
  */
 export async function userLogout() {
-  return await $R.post(routes.logout)
+  return await $R.post(routes.logout);
 }
 
 /**
@@ -80,7 +80,7 @@ export async function userLogin({ Password, Username }) {
   return await $R.post(routes.login, {
     Password,
     Username,
-  })
+  });
 }
 
 /**
@@ -92,7 +92,7 @@ export async function userRegister({ Account, LoginPassword }) {
   return await $R.post(routes.customer, {
     Account,
     LoginPassword,
-  })
+  });
 }
 
 /**
@@ -106,7 +106,7 @@ export async function searchChapterNext({ ID, Flag }) {
       ID,
       Flag,
     },
-  })
+  });
 }
 
 /**
@@ -119,7 +119,7 @@ export async function searchChapterDetail(ID) {
     params: {
       ID,
     },
-  })
+  });
 }
 
 /**
@@ -132,7 +132,7 @@ export async function searchChapters(NovelID) {
     params: {
       NovelID,
     },
-  })
+  });
 }
 
 /**
@@ -141,14 +141,14 @@ export async function searchChapters(NovelID) {
  * @param {*} ID
  */
 export async function novelsets(typeID) {
-  console.log("发送了")
+  console.log("发送了");
   return await $R.get(routes.novelsets, {
     params: {
       PageNum: 1,
       PageSize: 20,
       SetType: typeID,
     },
-  })
+  });
 }
 
 /**
@@ -157,20 +157,20 @@ export async function novelsets(typeID) {
  * @param {*} ID
  */
 export async function newupdatenovels() {
-  console.log("发送了")
+  console.log("发送了");
   return await $R.get(routes.newupdatenovels, {
     params: {
       PageNum: 2,
       PageSize: 20,
     },
-  })
+  });
 }
 
 /**
  * 查询小说排行分类;
  */
 export async function rankingtypes() {
-  return await $R.get(routes.rankingtypes)
+  return await $R.get(routes.rankingtypes);
 }
 
 /**
@@ -183,7 +183,7 @@ export async function rankingList({ pageIndex, type }) {
       PageSize: 20,
       RankingTypeID: type,
     },
-  })
+  });
 }
 
 /**
@@ -196,7 +196,7 @@ export async function categoryList(type, pageNumber) {
       PageSize: 20,
       Categorie: type,
     },
-  })
+  });
 }
 
 /**
@@ -209,7 +209,7 @@ export async function getwholeNovelList({ pageIndex }) {
       PageSize: 20,
       Status: 1, //已完结
     },
-  })
+  });
 }
 
 /**
@@ -220,5 +220,5 @@ export async function getNovelDetail(ID) {
     params: {
       ID: ID,
     },
-  })
+  });
 }
